@@ -1,0 +1,59 @@
+package manager;
+
+import dao.DaoFactory;
+import dao.mysql.MySqlDaoFactory;
+import dao.mysql.MySqlUserDao;
+import ents.User;
+import utils.HashUtil;
+
+import java.sql.Connection;
+
+public class UserManager {
+    private static DaoFactory<Connection> factory = MySqlDaoFactory.getInstance();
+
+    public User get(String login) throws Exception {
+        try {
+            MySqlUserDao userDao = (MySqlUserDao) factory.getDao(User.class);
+
+            User user = userDao.getByLogin(login);
+            //if (user != null) {
+                //user.setOrders(orderDao.getAllBelonging(user));
+                //for (Order o : user.getOrders()) {
+                    //o.setUser(user);
+                //}
+            //}
+
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User login(String login, String password) throws Exception {
+        User user = get(login);
+        if (user != null && HashUtil.validatePassword(password.toCharArray(), user.getHash())) {
+            return user;
+        }
+        return null;
+    }
+
+    public User create(String login, String hash, String mail, User.Role role) throws Exception {
+        try {
+            MySqlUserDao userDao = (MySqlUserDao) factory.getDao(User.class);
+
+            User user = new User();
+
+            user.setLogin(login);
+            user.setHash(hash);
+            user.setMail(mail);
+            user.setRole(role);
+
+            return userDao.persist(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+}
