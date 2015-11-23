@@ -1,6 +1,6 @@
 package servlets;
 
-import DbTools.ConnectionManager;
+import dao.ConnectionManager;
 import ents.User;
 import repo.UserRepo;
 import utils.HashUtil;

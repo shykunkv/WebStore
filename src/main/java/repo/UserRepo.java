@@ -1,6 +1,6 @@
 package repo;
 
-import DbTools.ConnectionManager;
+import dao.ConnectionManager;
 import common.RepoConstants;
 import ents.User;
 
