@@ -13,7 +13,9 @@
 <body>
 
 <form action="/register" method="POST">
-    Name: <input type="text" name="name">
+    Name: <input type="text" name="login">
+    <br />
+    Email address: <input type="text" name="mail">
     <br />
     Password: <input type="password" name="password" />
     <br />
