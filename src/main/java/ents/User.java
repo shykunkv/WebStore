@@ -21,8 +21,7 @@ public class User implements Identified<Integer> {
     public User() {
     }
 
-    public User(int id, String login, String hash, String mail) {
-        this.id = id;
+    public User(String login, String hash, String mail) {
         this.login = login;
         this.hash = hash;
         this.mail = mail;

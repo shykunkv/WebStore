@@ -6,8 +6,11 @@ import dao.mysql.MySqlUserDao;
 import ents.User;
 import utils.HashUtil;
 
+import javax.servlet.annotation.WebServlet;
 import java.sql.Connection;
 
+
+@WebServlet("/controller")
 public class UserManager {
     private static DaoFactory<Connection> factory = MySqlDaoFactory.getInstance();
 
@@ -38,17 +41,10 @@ public class UserManager {
         return null;
     }
 
-    public User create(String login, String hash, String mail, User.Role role) throws Exception {
+    public User create(String login, String password, String mail) throws Exception {
         try {
             MySqlUserDao userDao = (MySqlUserDao) factory.getDao(User.class);
-
-            User user = new User();
-
-            user.setLogin(login);
-            user.setHash(hash);
-            user.setMail(mail);
-            user.setRole(role);
-
+            User user = new User(login,HashUtil.createHash(password), mail);
             return userDao.persist(user);
         } catch (Exception e) {
             e.printStackTrace();

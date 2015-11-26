@@ -14928,163 +14928,155 @@ User</columns>
         <columns>login</columns>
         <unique>1</unique>
       </index>
-      <index id="3540" parent="333" name="users_mail_uindex">
-        <columns>mail</columns>
-        <unique>1</unique>
-      </index>
-      <key id="3541" parent="333" name="PRIMARY">
+      <key id="3540" parent="333" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="3542" parent="333" name="users_id_uindex">
+      <key id="3541" parent="333" name="users_id_uindex">
         <columns>id</columns>
         <underlying-index>users_id_uindex</underlying-index>
       </key>
-      <key id="3543" parent="333" name="users_login_uindex">
+      <key id="3542" parent="333" name="users_login_uindex">
         <columns>login</columns>
         <underlying-index>users_login_uindex</underlying-index>
       </key>
-      <key id="3544" parent="333" name="users_mail_uindex">
-        <columns>mail</columns>
-        <underlying-index>users_mail_uindex</underlying-index>
-      </key>
-      <column id="3545" parent="334" name="id">
+      <column id="3543" parent="334" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3546" parent="334" name="name">
+      <column id="3544" parent="334" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="3547" parent="334" name="brand">
+      <column id="3545" parent="334" name="brand">
         <mandatory>1</mandatory>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="3548" parent="334" name="price">
+      <column id="3546" parent="334" name="price">
         <mandatory>1</mandatory>
         <data-type>double</data-type>
       </column>
-      <column id="3549" parent="334" name="quantity">
+      <column id="3547" parent="334" name="quantity">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3550" parent="334" name="description">
+      <column id="3548" parent="334" name="description">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="3551" parent="334" name="category_id">
+      <column id="3549" parent="334" name="category_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3552" parent="334" name="image">
+      <column id="3550" parent="334" name="image">
         <mandatory>1</mandatory>
         <data-type>varchar(25)</data-type>
       </column>
-      <index id="3553" parent="334" name="products_id_uindex">
+      <index id="3551" parent="334" name="products_id_uindex">
         <columns>id</columns>
         <unique>1</unique>
       </index>
-      <index id="3554" parent="334" name="products_name_uindex">
+      <index id="3552" parent="334" name="products_name_uindex">
         <columns>name</columns>
         <unique>1</unique>
       </index>
-      <key id="3555" parent="334" name="PRIMARY">
+      <key id="3553" parent="334" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="3556" parent="334" name="products_id_uindex">
+      <key id="3554" parent="334" name="products_id_uindex">
         <columns>id</columns>
         <underlying-index>products_id_uindex</underlying-index>
       </key>
-      <key id="3557" parent="334" name="products_name_uindex">
+      <key id="3555" parent="334" name="products_name_uindex">
         <columns>name</columns>
         <underlying-index>products_name_uindex</underlying-index>
       </key>
-      <column id="3558" parent="335" name="id">
+      <column id="3556" parent="335" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3559" parent="335" name="name">
+      <column id="3557" parent="335" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(25)</data-type>
       </column>
-      <column id="3560" parent="335" name="description">
+      <column id="3558" parent="335" name="description">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <index id="3561" parent="335" name="categories_id_uindex">
+      <index id="3559" parent="335" name="categories_id_uindex">
         <columns>id</columns>
         <unique>1</unique>
       </index>
-      <index id="3562" parent="335" name="categories_name_uindex">
+      <index id="3560" parent="335" name="categories_name_uindex">
         <columns>name</columns>
         <unique>1</unique>
       </index>
-      <key id="3563" parent="335" name="categories_id_uindex">
+      <key id="3561" parent="335" name="categories_id_uindex">
         <columns>id</columns>
         <underlying-index>categories_id_uindex</underlying-index>
       </key>
-      <key id="3564" parent="335" name="categories_name_uindex">
+      <key id="3562" parent="335" name="categories_name_uindex">
         <columns>name</columns>
         <underlying-index>categories_name_uindex</underlying-index>
       </key>
-      <key id="3565" parent="335" name="PRIMARY">
+      <key id="3563" parent="335" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="3566" parent="336" name="id">
+      <column id="3564" parent="336" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3567" parent="336" name="user_id">
+      <column id="3565" parent="336" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3568" parent="336" name="created_at">
+      <column id="3566" parent="336" name="created_at">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="3569" parent="336" name="paid">
+      <column id="3567" parent="336" name="paid">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <index id="3570" parent="336" name="cards_id_uindex">
+      <index id="3568" parent="336" name="cards_id_uindex">
         <columns>id</columns>
         <unique>1</unique>
       </index>
-      <key id="3571" parent="336" name="cards_id_uindex">
+      <key id="3569" parent="336" name="cards_id_uindex">
         <columns>id</columns>
         <underlying-index>cards_id_uindex</underlying-index>
       </key>
-      <key id="3572" parent="336" name="PRIMARY">
+      <key id="3570" parent="336" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="3573" parent="337" name="id">
+      <column id="3571" parent="337" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3574" parent="337" name="product_id">
+      <column id="3572" parent="337" name="product_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3575" parent="337" name="order_id">
+      <column id="3573" parent="337" name="order_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="3576" parent="337" name="quantity">
+      <column id="3574" parent="337" name="quantity">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="3577" parent="337" name="card_items_id_uindex">
+      <index id="3575" parent="337" name="card_items_id_uindex">
         <columns>id</columns>
         <unique>1</unique>
       </index>
-      <key id="3578" parent="337" name="card_items_id_uindex">
+      <key id="3576" parent="337" name="card_items_id_uindex">
         <columns>id</columns>
         <underlying-index>card_items_id_uindex</underlying-index>
       </key>
-      <key id="3579" parent="337" name="PRIMARY">
+      <key id="3577" parent="337" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>

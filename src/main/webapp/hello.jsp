@@ -1,19 +1,34 @@
-<%@ page import="ents.User" %><%--
-  Created by IntelliJ IDEA.
-  User: Kostya
-  Date: 21.11.2015
-  Time: 23:31
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% User u = (User) session.getAttribute("user"); %>
 
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
-    <title>Hello</title>
+    <jsp:include page="layouts/resources.jsp" />
+    <jsp:include page="layouts/resources.jsp" />
 </head>
+
 <body>
-    <h2>Hello <%= u.getLogin() %></h2>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <jsp:include page="layouts/header.jsp" />
+            </div>
+
+            <div class="inner cover">
+                <p class="lead">Welcome, <%= request.getAttribute("login")%> </p>
+
+            </div>
+
+            <div class="mastfoot">
+                <jsp:include page="layouts/footer.jsp" />
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
+
 </html>

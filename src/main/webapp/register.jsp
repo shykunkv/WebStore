@@ -1,26 +1,31 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Kostya
-  Date: 21.11.2015
-  Time: 23:29
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
-    <title>Registeration</title>
+	<jsp:include page="layouts/resources.jsp" />
+	<jsp:include page="layouts/resources.jsp" />
 </head>
+
 <body>
+<div class="site-wrapper">
+	<div class="site-wrapper-inner">
+		<div class="cover-container">
 
-<form action="/register" method="POST">
-    Name: <input type="text" name="login">
-    <br />
-    Email address: <input type="text" name="mail">
-    <br />
-    Password: <input type="password" name="password" />
-    <br />
-    <input type="submit" value="GO" />
-</form>
+			<div class="masthead clearfix">
+				<jsp:include page="layouts/header.jsp" />
+			</div>
 
+			<div class="inner cover">
+				Register Form
+			</div>
+
+			<div class="mastfoot">
+				<jsp:include page="layouts/footer.jsp" />
+			</div>
+
+		</div>
+	</div>
+</div>
 </body>
+
 </html>
