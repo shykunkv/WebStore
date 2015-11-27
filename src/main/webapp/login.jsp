@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-
+<%@ page import="ents.User" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
 	<jsp:include page="layouts/resources.jsp" />
@@ -18,7 +18,9 @@
 			<div class="inner cover">
 				<form action="/main" method="POST">
 					<input type="hidden" name="action" value="login"/>
-					${message}
+					<c:if test="${message ne null}">
+						<c:out value='${message}'/>
+					</c:if>
 					<div class="row">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">

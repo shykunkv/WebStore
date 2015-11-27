@@ -16,7 +16,38 @@
 			</div>
 
 			<div class="inner cover">
-				Register Form
+				<form action="/main" method="POST">
+					<input type="hidden" name="action" value="register"/>
+					<c:if test="${message ne null}">
+						<c:out value='${message}'/>
+					</c:if>
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<input type="text" name="login" class="form-control" placeholder="Login"/>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<input type="text" name="mail" class="form-control" placeholder="Email address"/>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<input type="password" name="password" class="form-control" placeholder="Password"/>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+					<br />
+
+					<input type="submit" value="Sign in" />
+				</form>
 			</div>
 
 			<div class="mastfoot">

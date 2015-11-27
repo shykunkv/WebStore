@@ -28,7 +28,7 @@ public class RegisterAction extends Action {
         String password = req.getParameter(PASSWORD_PARAM);
         String mail = req.getParameter(MAIL_PARAM);
 
-        String res = "error.jsp";
+        String res = "register.jsp";
 
         User user = null;
 
