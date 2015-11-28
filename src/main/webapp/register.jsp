@@ -46,7 +46,7 @@
 					</div>
 					<br />
 
-					<input type="submit" value="Sign in" />
+					<input type="submit" value="Sign up" />
 				</form>
 			</div>
 

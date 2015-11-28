@@ -2,7 +2,9 @@ package ents;
 
 import dao.Identified;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Card implements Identified<Integer> {
 
@@ -11,7 +13,7 @@ public class Card implements Identified<Integer> {
     private int userId;
     private Date createdAt = new Date();
     private boolean paid;
-
+    private List<CardItem> cardItems = new ArrayList();
 
     public Card() {
     }
@@ -27,6 +29,15 @@ public class Card implements Identified<Integer> {
         this.userId = userId;
         this.createdAt = createdAt;
         this.paid = paid;
+    }
+
+
+    public List<CardItem> getCardItems() {
+        return cardItems;
+    }
+
+    public void setCardItems(List<CardItem> cardItems) {
+        this.cardItems = cardItems;
     }
 
     public Integer getId() {

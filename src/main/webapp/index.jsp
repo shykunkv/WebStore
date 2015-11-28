@@ -18,7 +18,7 @@
           <div class="inner cover">
             <h1 class="cover-heading">Welcome to Django online store.</h1>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-            <p class="lead"><a href="catalog.jsp" class="btn btn-lg btn-default"> Start now </a></p>
+            <p class="lead"><a href="/main?action=catalog" class="btn btn-lg btn-default"> Shop now </a></p>
           </div>
 
           <div class="mastfoot">

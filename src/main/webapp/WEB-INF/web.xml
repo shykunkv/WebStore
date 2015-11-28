@@ -11,6 +11,23 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     </welcome-file-list>
 
 
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/myTags</taglib-uri>
+            <taglib-location>/tags/myTags.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
+
+    <security-constraint>
+        <display-name>Restrict direct access to certain folders</display-name>
+        <web-resource-collection>
+            <web-resource-name>Restricted folders</web-resource-name>
+            <url-pattern>/catalog.jsp/*</url-pattern>
+            <url-pattern>/product.jsp/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>
 
 </web-app>
 

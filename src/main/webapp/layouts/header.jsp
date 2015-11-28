@@ -7,8 +7,9 @@
         <nav>
             <ul class="nav masthead-nav">
                 <li><a href="../index.jsp">Home</a></li>
-                <li><a href="../catalog.jsp">Catalog</a></li>
 
+                <li><a href="/main?action=catalog">Catalog</a>
+                </li>
                 <c:if test="${user != null}">
                     <li><a href="#">My Cart</a></li>
                 </c:if>

@@ -3,7 +3,7 @@ package dao.mysql;
 import dao.ConnectionManager;
 import dao.DaoFactory;
 import dao.GenericDao;
-import ents.User;
+import ents.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,29 +41,33 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
 
         creators = new HashMap();
 
-//        creators.put(Order.class, new DaoCreator() {
-//            @Override
-//            public GenericDao create(DaoFactory factory) {
-//                return new MySqlOrderDao(factory);
-//            }
-//        });
+
         creators.put(User.class, new DaoCreator() {
             public GenericDao create(DaoFactory factory) {
                 return new MySqlUserDao(factory);
             }
         });
-//        creators.put(Product.class, new DaoCreator() {
-//            @Override
-//            public GenericDao create(DaoFactory factory) {
-//                return new MySqlProductDao(factory);
-//            }
-//        });
-//        creators.put(OrderPart.class, new DaoCreator() {
-//            @Override
-//            public GenericDao create(DaoFactory factory) {
-//                return new MySqlOrderPartDao(factory);
-//            }
-//        });
+        creators.put(Category.class, new DaoCreator() {
+            public GenericDao create(DaoFactory factory) {
+                return new MySqlCategoryDao(factory);
+            }
+        });
+        creators.put(Product.class, new DaoCreator() {
+            public GenericDao create(DaoFactory factory) {
+                return new MySqlProductDao(factory);
+            }
+        });
+        creators.put(Card.class, new DaoCreator() {
+            public GenericDao create(DaoFactory factory) {
+                return new MySqlCardDao(factory);
+            }
+        });
+        creators.put(CardItem.class, new DaoCreator() {
+            public GenericDao create(DaoFactory factory) {
+                return new MySqlCardItemDao(factory);
+            }
+        });
+
     }
 
     public static MySqlDaoFactory getInstance() {

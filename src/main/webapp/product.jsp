@@ -1,62 +1,89 @@
-{% extends "catalog.html" %}
+<%@ taglib uri="/myTags" prefix="tag" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-{% block name %}
-	{{ p.name }}
-{% endblock %}
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+	<jsp:include page="layouts/resources.jsp" />
+	<jsp:include page="layouts/resources.jsp" />
+</head>
 
-{% block products %}
-	<div class = "col-xs-9">
-		<div class = "col-xs-7">
-			<img src = "{{ p.image.url }}" alt = "{{ p.name }}" />
+<body>
+<div class="site-wrapper">
+	<div class="site-wrapper-inner">
+		<div class="cover-container">
+
+			<div class="masthead clearfix">
+				<jsp:include page="layouts/header.jsp" />
+			</div>
+
+			<div class="inner cover">
+				<div class = "container-fluid">
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="col-md-9">
+							<h1 class="cover-heading">
+								<c:out value="${product.name}"/>
+							</h1><br/></br>
+						</div>
+					</div>
+					<div class = "row">
+						<div class="col-sm-3">
+							<tag:categories/>
+						</div>
+						<div class="col-sm-1">
+						</div>
+						<div class = "col-xs-8">
+							<div class="row">
+							<div class = "col-xs-7">
+								<img src = "images/<c:out value="${product.image}" />" alt = "image" height="200"/>
+							</div>
+							<div class = "col-xs-5">
+								<p>Name: <c:out value="${product.name}"/> </p>
+								<p>Brand: <em>  <c:out value="${product.brand}"/> </em> </p>
+								<p>Price: $  <c:out value="${product.price}"/> </p>
+								<br/>
+								<%--<style>--%>
+									<%--.quantity {--%>
+										<%--color:black;--%>
+									<%--}--%>
+									<%--.errorlist {--%>
+										<%--color:red;--%>
+									<%--}--%>
+								<%--</style>--%>
+								<%--{% if user.is_authenticated %}--%>
+								<%--<form method = "POST" action = "." class = "cart">--%>
+									<%--{{ form.as_p }}--%>
+									<%--{% if request.session.lang = 'en-us'%}--%>
+									<%--<input type = "submit" value = "Add to Cart" name = "submit" alt = "Add To Cart" class="btn btn-default"/>--%>
+									<%--{% else %}--%>
+									<%--<input type = "submit" value = "В корзину" name = "submit" alt = "Add To Cart" class="btn btn-default"/>--%>
+									<%--{% endif %}--%>
+								<%--</form>--%>
+								<%--{% endif %}--%>
+								<br/>
+								<br/>
+							</div>
+							</div>
+
+							<div class="row">
+							<h3>Product description:</h3>
+							<p> <c:out value="${product.description	}"/></p>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mastfoot">
+				<jsp:include page="layouts/footer.jsp" />
+			</div>
+
 		</div>
-		<div class = "col-xs-5">
-			<p>{% if request.session.lang = 'en-us'%}  Name: {% else %} Название: {% endif %}{{ p.name }} </p>
-			<p>{% if request.session.lang = 'en-us'%} Brand: {% else %} Производитель: {% endif %}<em> {{ p.brand }} </em> </p>
-			<p>
-				{% if request.session.lang = 'en-us'%} In categories: {% else %} В категориях: {% endif %}
-				{% for c in categories %}
-					<a href = "{{ c.get_absolute_url }}">
-						{% if request.session.lang = 'en-us'%}
-							{{ c.name }}
-						{% else %}
-							{{ c.r_name }}
-						{% endif %}
-					</a>
-					{% if not forloop.last %} , {% endif %}
-				{% endfor %}
-			</p>
-			<p>{% if request.session.lang = 'en-us'%}  Price: {% else %} Цена: {% endif %}$ {{ p.price }} </p>
-			<br/>
-			<style>
-				.quantity {
-					color:black;
-				}
-				.errorlist {
-					color:red;
-				}
-			</style>
-			{% if user.is_authenticated %}
-			<form method = "POST" action = "." class = "cart">	
-				{{ form.as_p }}
-				{% if request.session.lang = 'en-us'%}
-					<input type = "submit" value = "Add to Cart" name = "submit" alt = "Add To Cart" class="btn btn-default"/>
-				{% else %}
-					<input type = "submit" value = "В корзину" name = "submit" alt = "Add To Cart" class="btn btn-default"/>
-				{% endif %}
-			</form>
-			{% endif %}
-			<br/>
-			<br/>
-		</div>
-			
-		<h3>{% if request.session.lang = 'en-us'%} Product description: {% else %} Описание продукта: {% endif %}</h3>
-		<p>
-			{% if request.session.lang = 'en-us'%}
-				{{ p.description }}
-			{% else %}
-				{{ p.r_description }}
-			{% endif %}
-		</p>
 	</div>
-{% endblock %}
+</div>
+</body>
+
+</html>
+

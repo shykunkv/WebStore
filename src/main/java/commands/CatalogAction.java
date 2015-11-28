@@ -1,7 +1,7 @@
 package commands;
 
 import ents.Category;
-import manager.CategoryManager;
+import manager.CatalogManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,21 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Kostya on 26.11.2015.
- */
 public class CatalogAction extends Action {
 
-    private CategoryManager categoryManager = new CategoryManager();
+    private CatalogManager catalogManager = new CatalogManager();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String res = "catalog.jsp";
 
         try {
-            List<Category> categoryList = categoryManager.getAll();
+            List<Category> categoryList = catalogManager.getAll();
             if (categoryList != null) {
-
+                req.setAttribute("categories", categoryList);
             }
         } catch (Exception e) {
             e.printStackTrace();

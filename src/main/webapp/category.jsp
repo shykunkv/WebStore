@@ -1,30 +1,53 @@
-{% extends "catalog.html" %}
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="/myTags" prefix="tag" %>
 
-{% block name %}
-	{% if request.session.lang = 'en-us'%}
-		{{ c.name }}
-	{% else %}
-		{{ c.r_name }}
-	{% endif %}
-{% endblock %}
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+	<jsp:include page="layouts/resources.jsp" />
+	<jsp:include page="layouts/resources.jsp" />
+</head>
 
+<body>
+<div class="site-wrapper">
+	<div class="site-wrapper-inner">
+		<div class="cover-container">
 
-{% block products %}
+			<div class="masthead clearfix">
+				<jsp:include page="layouts/header.jsp" />
+			</div>
 
-	<div class="col-xs-9">
-	{% for p in products %}
-	<div class = "row-xs-9">
-		<div class = "col-xs-7">
-			<img src = "{{ p.image.url }}" alt = "{{ p.name }}"/>
-		</div>
-		<div class = "col-xs-5">
-			<p> {% if request.session.lang = 'en-us'%} Name: {% else %} Название: {% endif %}{{ p.name }}</p>
-			<p>{% if request.session.lang = 'en-us'%} Price:  {% else %} Цена: {% endif %} $ {{ p.price }} </p>
-			<p><a href = "{{ p.get_absolute_url }}" class="btn btn-default">{% if request.session.lang = 'en-us'%}  More.. {% else %} Подробнее... {% endif %}</a></p>
+			<div class="inner cover">
+				<div class = "container-fluid">
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="col-md-9">
+							<h1 class="cover-heading">
+								<c:out value="${name}"/>
+							</h1><br/></br>
+						</div>
+					</div>
+					<div class = "row">
+						<div class="col-sm-3">
+							<tag:categories/>
+						</div>
+						<div class="col-sm-1">
+						</div>
+						<div class="col-sm-8">
+							<tag:category/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mastfoot">
+				<jsp:include page="layouts/footer.jsp" />
+			</div>
+
 		</div>
 	</div>
-	{% endfor %}
-	</div>
+</div>
+</body>
 
-{% endblock %}
+</html>

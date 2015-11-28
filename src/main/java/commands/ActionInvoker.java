@@ -17,6 +17,9 @@ public class ActionInvoker {
         actionMap.put("default", new DefaultAction());
         actionMap.put("login", new LoginAction());
         actionMap.put("register", new RegisterAction());
+        actionMap.put("catalog", new CatalogAction());
+        actionMap.put("category", new CategoryAction());
+        actionMap.put("product", new ProductAction());
     }
 
     public String invoke(HttpServletRequest req, HttpServletResponse resp)

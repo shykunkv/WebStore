@@ -95,41 +95,4 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
             throw new Exception(e);
         }
     }
-
-    public List<Category> getAll() throws Exception {
-        List<Category> result;
-        String sql = getSelectQuery();
-
-        try (Connection connection = parentFactory.getContext()) {
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                ResultSet rs = statement.executeQuery();
-                result = parseResultSet(rs);
-            }
-        } catch (SQLException e) {
-            throw new Exception(e);
-        }
-
-        if (result == null) return Collections.emptyList();
-        return result;
-    }
-
-//    public Category getByLogin(String login) throws Exception {
-//        List<User> list;
-//        String sql = getSelectQuery();
-//        sql += " WHERE login = ?";
-//        try (PreparedStatement statement = parentFactory.getContext().prepareStatement(sql)) {
-//            statement.setString(1, login);
-//            ResultSet rs = statement.executeQuery();
-//            list = parseResultSet(rs);
-//        } catch (Exception e) {
-//            throw new Exception(e);
-//        }
-//        if (list == null || list.size() == 0) {
-//            return null;
-//        }
-//        if (list.size() > 1) {
-//            throw new Exception("Received more than one record.");
-//        }
-//        return list.iterator().next();
-//    }
 }
