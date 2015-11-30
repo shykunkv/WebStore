@@ -24,4 +24,35 @@ public class ProductManager {
             return null;
         }
     }
+
+
+    public Product create(String name, String brand, double price, String description, int categoryId, String image) throws Exception {
+        try {
+            MySqlProductDao productDao = (MySqlProductDao) factory.getDao(Product.class);
+            Product product = new Product(name, brand, price, 20, description, categoryId, image);
+            return productDao.persist(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void delete(Product product) {
+        try {
+            MySqlProductDao productDao = (MySqlProductDao) factory.getDao(Product.class);
+            productDao.delete(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Product product) {
+        try {
+            MySqlProductDao productDao = (MySqlProductDao) factory.getDao(Product.class);
+            productDao.update(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

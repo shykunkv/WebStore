@@ -36,14 +36,14 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE webstore_dev.user \n" +
+        return "UPDATE webstore_dev.users \n" +
                 "SET login = ?, password  = ?, mail = ?, role = ? \n" +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM webstore_dev.user WHERE id = ?;";
+        return "DELETE FROM webstore_dev.users WHERE id = ?;";
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
             statement.setString(2, object.getHash());
             statement.setString(3, object.getMail());
             statement.setString(4, object.getRole().toString());
-            statement.setInt(7, object.getId());
+            statement.setInt(5, object.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }

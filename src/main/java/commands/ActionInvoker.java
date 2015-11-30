@@ -27,7 +27,12 @@ public class ActionInvoker {
         actionMap.put("addCategory", new AddCategoryAction());
         actionMap.put("deleteCategory", new DeleteCategoryAction());
         actionMap.put("editCategory", new EditCategoryAction());
-
+        actionMap.put("addProduct", new AddProductAction());
+        actionMap.put("deleteProduct", new DeleteProductAction());
+        actionMap.put("editProduct", new EditProductAction());
+        actionMap.put("searchUser", new SearchUserAction());
+        actionMap.put("banAction", new BanAction());
+        actionMap.put("unbanAction", new UnbanAction());
     }
 
     public String invoke(HttpServletRequest req, HttpServletResponse resp)

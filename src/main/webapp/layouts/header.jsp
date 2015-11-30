@@ -10,9 +10,15 @@
 
                 <li><a href="/main?action=catalog">Catalog</a>
                 </li>
-                <c:if test="${user != null}">
+
+                <c:if test="${user != null && user.role == 'USER'}">
                     <li><a href="../cart.jsp">My Cart</a></li>
                 </c:if>
+
+                <c:if test="${user != null && user.role == 'ADMIN'}">
+                    <li><a href="../users.jsp">Users</a></li>
+                </c:if>
+
 
                 <c:if test="${user == null}">
                     <li><a href="../login.jsp">Login</a></li>

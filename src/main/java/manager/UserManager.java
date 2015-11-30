@@ -52,4 +52,13 @@ public class UserManager {
         return null;
     }
 
+    public void update(User user) throws Exception {
+        try {
+            MySqlUserDao userDao = (MySqlUserDao) factory.getDao(User.class);
+            userDao.update(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

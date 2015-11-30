@@ -24,7 +24,7 @@ public class MySqlCartDao extends AbstractJDBCDao<Cart, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, user_id, created_at, paid  FROM webstore_dev.carts ";
+        return "SELECT id, user_id, created_at, paid  FROM webstore_dev.carts";
     }
 
     @Override

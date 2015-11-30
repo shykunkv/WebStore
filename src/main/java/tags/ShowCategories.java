@@ -26,23 +26,23 @@ public class ShowCategories extends TagSupport {
                     out.println("<h3 class=\"masthead-brand\">");
                     out.println("<a href = \"/main?action=category&id=" + c.getId() + "\">");
                     out.println(c.getName());
-                    out.println("</a></h3>");
-                    //if (user != null && user.getRole() == User.Role.ADMIN) {
+                    out.println("</a>");
+                    if (user != null && user.getRole() == User.Role.ADMIN) {
                         out.print("<button type=\"button\" class=\"btn btn-default btn-xs\" data-toggle=\"modal\" " +
                             "data-target=\"#edit\" data-name=\""+c.getName()+"\" data-description=\""+c.getDescription()+"\">" +
                             "<span class = \"glyphicon glyphicon-pencil\"/>" +
                             "</button>");
-                    //}
-                    out.print("</div>");
+                    }
+                    out.print("</h3></div>");
                 }
 
-                //if (user != null && user.getRole() == User.Role.ADMIN) {
+                if (user != null && user.getRole() == User.Role.ADMIN) {
                     out.print("<div class=\"row\"><div class=\"col-sm-4\">");
-                    out.print("<button type=\"button\" class=\"btn btn-default btn-xs\" data-toggle=\"modal\" data-target=\"#add\">" +
-                            "<span class = \"glyphicon glyphicon-plus\"/>" +
+                    out.print("<button type=\"button\" class=\"btn btn-default btn-sm\" data-toggle=\"modal\" data-target=\"#add\">" +
+                            "<span class = \"glyphicon glyphicon-plus\"/> category" +
                             "</button>");
                     out.print("</div></div>");
-                //}
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
