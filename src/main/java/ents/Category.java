@@ -12,7 +12,7 @@ public class Category implements Identified<Integer> {
 
     public Category() {}
 
-    public Category(String name, String scription) {
+    public Category(String name, String description) {
         this.name = name;
         this.description = description;
     }

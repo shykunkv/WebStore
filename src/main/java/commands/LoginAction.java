@@ -1,6 +1,8 @@
 package commands;
 
+import ents.Cart;
 import ents.User;
+import manager.CartManager;
 import manager.UserManager;
 
 import javax.servlet.ServletException;
@@ -17,6 +19,7 @@ public class LoginAction extends Action {
     private static final String PASSWORD_PARAM = "password";
 
     private UserManager userManager = new UserManager();
+    private CartManager cartManager = new CartManager();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,8 +33,10 @@ public class LoginAction extends Action {
             User user = userManager.login(login, password);
             if (user != null) {
                 res = "hello.jsp";
-                req.setAttribute("login", user.getLogin());
                 req.getSession().setAttribute("user", user);
+
+                Cart cart = cartManager.getByUserId(user.getId());
+                req.getSession().setAttribute("cart", cart);
             } else {
                 req.setAttribute("message", "Invadil login or password!");
             }

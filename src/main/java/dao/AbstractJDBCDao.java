@@ -116,7 +116,7 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         String sql = getUpdateQuery();
         Connection connection = parentFactory.getContext();
         try (PreparedStatement statement = connection.prepareStatement(sql);) {
-            prepareStatementForUpdate(statement, object); // заполнение аргументов запроса оставим на совесть потомков
+            prepareStatementForUpdate(statement, object);
             int count = statement.executeUpdate();
             if (count != 1) {
                 throw new Exception("On update modify more then 1 record: " + count);
@@ -158,7 +158,6 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         return list;
     }
 
-    // TODO: add rollbacks to methods?
 
     public AbstractJDBCDao(DaoFactory<Connection> parentFactory) {
         this.parentFactory = parentFactory;

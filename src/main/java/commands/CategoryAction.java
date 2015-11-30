@@ -2,7 +2,6 @@ package commands;
 
 import ents.Category;
 import ents.Product;
-import manager.CatalogManager;
 import manager.CategoryManager;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import java.util.List;
 public class CategoryAction extends Action {
 
     private CategoryManager categoryManager = new CategoryManager();
-    private CatalogManager catalogManager = new CatalogManager();
 
 
     @Override
@@ -25,7 +23,7 @@ public class CategoryAction extends Action {
         int categoryId = Integer.parseInt(request.getParameter("id"));
         String name = categoryManager.getById(categoryId).getName();
         try {
-            List<Category> categoryList = catalogManager.getAll();
+            List<Category> categoryList = categoryManager.getAllCategories();
             List<Product> productsList = categoryManager.getAllFromCategory(categoryId);
             if (productsList != null) {
                 request.setAttribute("products", productsList);

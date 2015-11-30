@@ -1,72 +1,67 @@
 package dao.mysql;
 
 
-import ents.Card;
-
 import dao.AbstractJDBCDao;
 import dao.DaoFactory;
-import ents.CardItem;
-import ents.Product;
-import ents.User;
+import ents.CartItem;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MySqlCardItemDao extends AbstractJDBCDao<CardItem, Integer> {
+public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
 
-    private class PersistCardItem extends CardItem {
+    private class PersistCartItem extends CartItem {
         public void setId(int id) {
             super.setId(id);
         }
     }
 
-    public MySqlCardItemDao(DaoFactory parentFactory) {
+    public MySqlCartItemDao(DaoFactory parentFactory) {
         super(parentFactory);
     }
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, product_id, order_id, quantity  FROM webstore_dev.card_items ";
+        return "SELECT id, product_id, cart_id, quantity  FROM webstore_dev.cart_items ";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO webstore_dev.card_items (product_id, order_id, quantity) \n" +
+        return "INSERT INTO webstore_dev.cart_items (product_id, cart_id, quantity) \n" +
                 "VALUES (?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE webstore_dev.card_items \n" +
-                "SET product_id = ?, order_at  = ?, quantity = ?\n" +
+        return "UPDATE webstore_dev.cart_items \n" +
+                "SET product_id = ?, cart_id  = ?, quantity = ?\n" +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM webstore_dev.card_items WHERE id = ?;";
+        return "DELETE FROM webstore_dev.cart_items WHERE id = ?;";
     }
 
     @Override
-    public CardItem create() throws Exception {
-        CardItem cardItem = new CardItem();
-        return persist(cardItem);
+    public CartItem create() throws Exception {
+        CartItem cartItem = new CartItem();
+        return persist(cartItem);
     }
 
 
-    protected List<CardItem> parseResultSet(ResultSet rs) throws Exception {
-        LinkedList<CardItem> result = new LinkedList<>();
+    protected List<CartItem> parseResultSet(ResultSet rs) throws Exception {
+        LinkedList<CartItem> result = new LinkedList<>();
         try {
             while (rs.next()) {
-                PersistCardItem cardItem = new PersistCardItem();
+                PersistCartItem cardItem = new PersistCartItem();
                 cardItem.setId(rs.getInt("id"));
                 cardItem.setProductId(rs.getInt("product_id"));
-                cardItem.setOrderId(rs.getInt("order_id"));
+                cardItem.setOrderId(rs.getInt("cart_id"));
                 cardItem.setQuantity(rs.getInt("quantity"));
                 result.add(cardItem);
             }
@@ -76,7 +71,7 @@ public class MySqlCardItemDao extends AbstractJDBCDao<CardItem, Integer> {
         return result;
     }
 
-    protected void prepareStatementForUpdate(PreparedStatement statement, CardItem object) throws Exception {
+    protected void prepareStatementForUpdate(PreparedStatement statement, CartItem object) throws Exception {
         try {
             statement.setInt(1, object.getProductId());
             statement.setInt(2, object.getOrderId());
@@ -87,7 +82,7 @@ public class MySqlCardItemDao extends AbstractJDBCDao<CardItem, Integer> {
         }
     }
 
-    protected void prepareStatementForInsert(PreparedStatement statement, CardItem object) throws Exception {
+    protected void prepareStatementForInsert(PreparedStatement statement, CartItem object) throws Exception {
         try {
             statement.setInt(1, object.getProductId());
             statement.setInt(2, object.getOrderId());
@@ -98,11 +93,12 @@ public class MySqlCardItemDao extends AbstractJDBCDao<CardItem, Integer> {
     }
 
 
-    public List<CardItem> getAllFromCard(int cardId) {
 
-        List<CardItem> result = null;
+    public List<CartItem> getAllFromCard(int cardId) {
+
+        List<CartItem> result = null;
         String sql = getSelectQuery();
-        sql += "WHERE card_id = ?";
+        sql += "WHERE cart_id = ?";
 
         try (Connection connection = parentFactory.getContext()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -114,7 +110,6 @@ public class MySqlCardItemDao extends AbstractJDBCDao<CardItem, Integer> {
             e.printStackTrace();
         }
 
-        if (result == null) return Collections.emptyList();
         return result;
     }
 }

@@ -2,7 +2,7 @@
 
 <div class="inner">
         <h3 class="masthead-brand">
-            Django Store
+            Shykun Web Store
         </h3>
         <nav>
             <ul class="nav masthead-nav">
@@ -11,7 +11,7 @@
                 <li><a href="/main?action=catalog">Catalog</a>
                 </li>
                 <c:if test="${user != null}">
-                    <li><a href="#">My Cart</a></li>
+                    <li><a href="../cart.jsp">My Cart</a></li>
                 </c:if>
 
                 <c:if test="${user == null}">

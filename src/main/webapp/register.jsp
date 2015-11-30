@@ -45,8 +45,13 @@
 						<div class="col-md-4"></div>
 					</div>
 					<br />
-
-					<input type="submit" value="Sign up" />
+					<div class="row">
+						<div class="col-md-5"></div>
+						<div class="col-md-2">
+							<input type="submit" value="Sign up" class="btn btn-default btn-block"/>
+						</div>
+						<div class="col-md-5"></div>
+					</div>
 				</form>
 			</div>
 

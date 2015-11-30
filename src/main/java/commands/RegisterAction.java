@@ -36,7 +36,7 @@ public class RegisterAction extends Action {
             user = userManager.get(login);
             if (user == null) {
                 user = userManager.create(login, password, mail);
-                res = "index.jsp";
+                res = "login.jsp";
             } else {
                 req.setAttribute("message", "User already exist!");
             }

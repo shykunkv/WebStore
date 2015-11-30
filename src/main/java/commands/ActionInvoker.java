@@ -20,6 +20,14 @@ public class ActionInvoker {
         actionMap.put("catalog", new CatalogAction());
         actionMap.put("category", new CategoryAction());
         actionMap.put("product", new ProductAction());
+        actionMap.put("addToCart", new AddToCartAction());
+        actionMap.put("updateCart", new UpdateCartAction());
+        actionMap.put("deleteItem", new DeleteItemAction());
+        actionMap.put("checkout", new CheckoutAction());
+        actionMap.put("addCategory", new AddCategoryAction());
+        actionMap.put("deleteCategory", new DeleteCategoryAction());
+        actionMap.put("editCategory", new EditCategoryAction());
+
     }
 
     public String invoke(HttpServletRequest req, HttpServletResponse resp)

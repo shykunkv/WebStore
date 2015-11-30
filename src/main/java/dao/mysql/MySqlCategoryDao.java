@@ -37,8 +37,8 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO webstore_dev.categories (id, name, description) \n" +
-                "VALUES (?, ?, ?);";
+        return "INSERT INTO webstore_dev.categories (name, description) \n" +
+                "VALUES (?, ?);";
     }
 
     @Override
@@ -94,5 +94,26 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
         } catch (Exception e) {
             throw new Exception(e);
         }
+    }
+
+
+    public Category getByName(String name) throws Exception {
+        List<Category> list;
+        String sql = getSelectQuery();
+        sql += " WHERE name = ?";
+        try (PreparedStatement statement = parentFactory.getContext().prepareStatement(sql)) {
+            statement.setString(1, name);
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        if (list.size() > 1) {
+            throw new Exception("Received more than one record.");
+        }
+        return list.iterator().next();
     }
 }

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-//TODO : web_store static
+
 public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
     private class PersistUser extends User {

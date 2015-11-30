@@ -6,38 +6,41 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Card implements Identified<Integer> {
+public class Cart implements Identified<Integer> {
 
 
     private int id;
     private int userId;
-    private Date createdAt = new Date();
+    private Date createdAt;
     private boolean paid;
-    private List<CardItem> cardItems = new ArrayList();
+    private List<CartItem> cartItems;
 
-    public Card() {
+    public Cart() {
+        this.cartItems = new ArrayList<>();
+        this.createdAt = new Date();
     }
 
-    public Card( int userId, Date createdAt, boolean paid) {
+    public Cart(int userId, Date createdAt, boolean paid) {
         this.userId = userId;
         this.createdAt = createdAt;
         this.paid = paid;
+        this.cartItems = new ArrayList<>();
     }
 
-    public Card(int id, int userId, Date createdAt, boolean paid) {
+    public Cart(int id, int userId, Date createdAt, boolean paid) {
         this.id = id;
         this.userId = userId;
         this.createdAt = createdAt;
         this.paid = paid;
+        this.cartItems = new ArrayList<>();
     }
 
-
-    public List<CardItem> getCardItems() {
-        return cardItems;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setCardItems(List<CardItem> cardItems) {
-        this.cardItems = cardItems;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public Integer getId() {

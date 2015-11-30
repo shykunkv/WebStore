@@ -19,7 +19,7 @@
             </div>
 
             <div class="inner cover">
-                <p class="lead">Welcome, <c:out value="${login}"/></p>
+                <h2>Welcome, <c:out value="${user.login}"/></h2>
 
             </div>
 

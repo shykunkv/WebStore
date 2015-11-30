@@ -57,14 +57,14 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
                 return new MySqlProductDao(factory);
             }
         });
-        creators.put(Card.class, new DaoCreator() {
+        creators.put(Cart.class, new DaoCreator() {
             public GenericDao create(DaoFactory factory) {
-                return new MySqlCardDao(factory);
+                return new MySqlCartDao(factory);
             }
         });
-        creators.put(CardItem.class, new DaoCreator() {
+        creators.put(CartItem.class, new DaoCreator() {
             public GenericDao create(DaoFactory factory) {
-                return new MySqlCardItemDao(factory);
+                return new MySqlCartItemDao(factory);
             }
         });
 

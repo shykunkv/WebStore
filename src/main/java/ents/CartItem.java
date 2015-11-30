@@ -2,27 +2,36 @@ package ents;
 
 import dao.Identified;
 
-public class CardItem implements Identified<Integer> {
+public class CartItem implements Identified<Integer> {
 
     private int id;
     private int productId;
     private int orderId;
     private int quantity;
+    private Product product = null;
 
-    public CardItem() {
+    public CartItem() {
     }
 
-    public CardItem(int productId, int orderId, int quantity) {
+    public CartItem(int productId, int orderId, int quantity) {
         this.productId = productId;
         this.orderId = orderId;
         this.quantity = quantity;
     }
 
-    public CardItem(int id, int productId, int orderId, int quantity) {
+    public CartItem(int id, int productId, int orderId, int quantity) {
         this.id = id;
         this.productId = productId;
         this.orderId = orderId;
         this.quantity = quantity;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getId() {

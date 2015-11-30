@@ -37,11 +37,23 @@
 						<div class="col-md-4"></div>
 					</div>
 					<br />
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-2">
+							<input type="submit" value="Sign in" class="btn btn-default btn-block"/>
+						</div>
+						<div class="col-md-2">
+							<a href="register.jsp" class="btn btn-default btn-block">Sign up</a>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+					<br>
 
-					<input type="submit" value="Sign in" />
+
+
 				</form>
 
-				<a href="register.jsp">Register</a>
+
 			</div>
 
 			<div class="mastfoot">

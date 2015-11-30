@@ -23,7 +23,7 @@ public class ShowCategory extends TagSupport {
                 for (Product p : productList) {
                     out.println("<div class = \"row\">");
                     out.println(" <div class = \"col-xs-7\">");
-                    out.print("<img src = \""+ IMAGE_URL + p.getImage() + "\" alt = \"" + p.getName() + "\" height=\"120\" />");
+                    out.print("<img src = \""+ IMAGE_URL + p.getImage() + "\" alt = \"" + p.getName() + "\" height=\"100\" />");
                     out.println("</div>");
 
                     out.println("<div class = \"col-xs-5\">");

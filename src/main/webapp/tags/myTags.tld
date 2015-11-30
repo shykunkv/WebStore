@@ -23,5 +23,11 @@
         <body-content>empty</body-content>
     </tag>
 
+    <tag>
+        <name>cart</name>
+        <tag-class>tags.ShowCart</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+
 
 </taglib>

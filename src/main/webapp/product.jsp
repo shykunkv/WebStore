@@ -9,6 +9,8 @@
 	<jsp:include page="layouts/resources.jsp" />
 </head>
 
+
+
 <body>
 <div class="site-wrapper">
 	<div class="site-wrapper-inner">
@@ -21,47 +23,39 @@
 			<div class="inner cover">
 				<div class = "container-fluid">
 					<div class="row">
-						<div class="col-md-3"></div>
-						<div class="col-md-9">
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
 							<h1 class="cover-heading">
 								<c:out value="${product.name}"/>
 							</h1><br/></br>
 						</div>
 					</div>
 					<div class = "row">
-						<div class="col-sm-3">
+						<div class="col-sm-5">
 							<tag:categories/>
 						</div>
 						<div class="col-sm-1">
 						</div>
-						<div class = "col-xs-8">
+						<div class = "col-xs-6">
 							<div class="row">
 							<div class = "col-xs-7">
-								<img src = "images/<c:out value="${product.image}" />" alt = "image" height="200"/>
+								<img src = "images/<c:out value="${product.image}" />" alt = "image" height="150"/>
 							</div>
 							<div class = "col-xs-5">
 								<p>Name: <c:out value="${product.name}"/> </p>
 								<p>Brand: <em>  <c:out value="${product.brand}"/> </em> </p>
 								<p>Price: $  <c:out value="${product.price}"/> </p>
 								<br/>
-								<%--<style>--%>
-									<%--.quantity {--%>
-										<%--color:black;--%>
-									<%--}--%>
-									<%--.errorlist {--%>
-										<%--color:red;--%>
-									<%--}--%>
-								<%--</style>--%>
-								<%--{% if user.is_authenticated %}--%>
-								<%--<form method = "POST" action = "." class = "cart">--%>
-									<%--{{ form.as_p }}--%>
-									<%--{% if request.session.lang = 'en-us'%}--%>
-									<%--<input type = "submit" value = "Add to Cart" name = "submit" alt = "Add To Cart" class="btn btn-default"/>--%>
-									<%--{% else %}--%>
-									<%--<input type = "submit" value = "В корзину" name = "submit" alt = "Add To Cart" class="btn btn-default"/>--%>
-									<%--{% endif %}--%>
-								<%--</form>--%>
-								<%--{% endif %}--%>
+
+								<c:if test="${user != null}" >
+									<form method = "POST" action = "/main">
+										<input type="hidden" name="action" value="addToCart" />
+										<input type="hidden" name="product_id" value="<c:out value="${product.id}"/>" />
+										<input type = "submit" value = "Add to Cart" name = "submit" alt = "Add To Cart" class="btn btn-default"/>
+									</form>
+								</c:if>
+
+
 								<br/>
 								<br/>
 							</div>

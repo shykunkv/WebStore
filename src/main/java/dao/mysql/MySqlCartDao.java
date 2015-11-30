@@ -1,71 +1,65 @@
 package dao.mysql;
 
-import ents.Card;
+import ents.Cart;
 
 import dao.AbstractJDBCDao;
 import dao.DaoFactory;
-import ents.Product;
-import ents.User;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MySqlCardDao extends AbstractJDBCDao<Card, Integer> {
+public class MySqlCartDao extends AbstractJDBCDao<Cart, Integer> {
 
-    private class PersistCard extends Card {
+    private class PersistCart extends Cart {
         public void setId(int id) {
             super.setId(id);
         }
     }
 
-    public MySqlCardDao(DaoFactory parentFactory) {
+    public MySqlCartDao(DaoFactory parentFactory) {
         super(parentFactory);
     }
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, user_id, created_at, paid  FROM webstore_dev.cards ";
+        return "SELECT id, user_id, created_at, paid  FROM webstore_dev.carts ";
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO webstore_dev.cards (user_id, created_at, paid) \n" +
+        return "INSERT INTO webstore_dev.carts (user_id, created_at, paid) \n" +
                 "VALUES (?, ?, ?);";
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE webstore_dev.cards \n" +
-                "SET user_id = ?, created_at  = ?, paid = ?\n" +
+        return "UPDATE webstore_dev.carts \n" +
+                "SET user_id = ?, created_at  = ?\n" +
                 "WHERE id = ?;";
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM webstore_dev.cards WHERE id = ?;";
+        return "DELETE FROM webstore_dev.carts WHERE id = ?;";
     }
 
     @Override
-    public Card create() throws Exception {
-        Card card = new Card();
-        return persist(card);
+    public Cart create() throws Exception {
+        Cart cart = new Cart();
+        return persist(cart);
     }
 
 
-    protected List<Card> parseResultSet(ResultSet rs) throws Exception {
-        LinkedList<Card> result = new LinkedList<>();
+    protected List<Cart> parseResultSet(ResultSet rs) throws Exception {
+        LinkedList<Cart> result = new LinkedList<>();
         try {
             while (rs.next()) {
-                PersistCard card = new PersistCard();
+                PersistCart card = new PersistCart();
                 card.setId(rs.getInt("id"));
                 card.setUserId(rs.getInt("user_id"));
                 card.setCreatedAt(rs.getDate("created_at"));
-                card.setPaid(rs.getBoolean("paid"));
                 result.add(card);
             }
         } catch (Exception e) {
@@ -74,18 +68,17 @@ public class MySqlCardDao extends AbstractJDBCDao<Card, Integer> {
         return result;
     }
 
-    protected void prepareStatementForUpdate(PreparedStatement statement, Card object) throws Exception {
+    protected void prepareStatementForUpdate(PreparedStatement statement, Cart object) throws Exception {
         try {
             statement.setInt(1, object.getUserId());
             statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
-            statement.setBoolean(3, object.isPaid());
-            statement.setInt(4, object.getId());
+            statement.setInt(3, object.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected void prepareStatementForInsert(PreparedStatement statement, Card object) throws Exception {
+    protected void prepareStatementForInsert(PreparedStatement statement, Cart object) throws Exception {
         try {
             statement.setInt(1, object.getUserId());
             statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
@@ -95,8 +88,8 @@ public class MySqlCardDao extends AbstractJDBCDao<Card, Integer> {
         }
     }
 
-    public Card getByUserId(int userId) throws Exception {
-        List<Card> list;
+    public Cart getByUserId(int userId) throws Exception {
+        List<Cart> list;
         String sql = getSelectQuery();
         sql += " WHERE user_id = ?";
         try (PreparedStatement statement = parentFactory.getContext().prepareStatement(sql)) {

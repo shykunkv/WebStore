@@ -21,20 +21,20 @@
 			<div class="inner cover">
 				<div class = "container-fluid">
 					<div class="row">
-						<div class="col-md-3"></div>
-						<div class="col-md-9">
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
 							<h1 class="cover-heading">
 								<c:out value="${name}"/>
 							</h1><br/></br>
 						</div>
 					</div>
 					<div class = "row">
-						<div class="col-sm-3">
+						<div class="col-sm-5">
 							<tag:categories/>
 						</div>
 						<div class="col-sm-1">
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-6">
 							<tag:category/>
 						</div>
 					</div>

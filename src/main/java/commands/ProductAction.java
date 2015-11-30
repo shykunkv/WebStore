@@ -2,7 +2,6 @@ package commands;
 
 import ents.Category;
 import ents.Product;
-import manager.CatalogManager;
 import manager.CategoryManager;
 import manager.ProductManager;
 
@@ -16,7 +15,7 @@ public class ProductAction extends Action {
 
 
     private ProductManager productManager = new ProductManager();
-    private CatalogManager catalorManager = new CatalogManager();
+    private CategoryManager categoryManager = new CategoryManager();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,7 +26,7 @@ public class ProductAction extends Action {
 
 
         try {
-            List<Category> categories = catalorManager.getAll();
+            List<Category> categories = categoryManager.getAllCategories();
             Product product = productManager.getById(productId);
             request.setAttribute("categories", categories);
             request.setAttribute("product", product);
