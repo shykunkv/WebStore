@@ -7,8 +7,8 @@ public interface DaoFactory<Context> {
         public GenericDao create(DaoFactory parentFactory);
     }
 
-    public Context getContext() throws Exception;
+    public Context getContext();
 
     /** Возвращает объект для управления персистентным состоянием объекта */
-    public GenericDao getDao(Class dtoClass) throws Exception;
+    public GenericDao getDao(Class dtoClass) throws IllegalArgumentException;
 }

@@ -7,10 +7,15 @@ import dao.DaoFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class MySqlCartDao extends AbstractJDBCDao<Cart, Integer> {
+
+    private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
 
     private class PersistCart extends Cart {
         public void setId(int id) {
@@ -24,87 +29,73 @@ public class MySqlCartDao extends AbstractJDBCDao<Cart, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, user_id, created_at, paid  FROM webstore_dev.carts";
+        return dbBundle.getString("CARTS.SELECT");
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO webstore_dev.carts (user_id, created_at, paid) \n" +
-                "VALUES (?, ?, ?);";
+        return dbBundle.getString("CARTS.INSERT");
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE webstore_dev.carts \n" +
-                "SET user_id = ?, created_at  = ?\n" +
-                "WHERE id = ?;";
+        return dbBundle.getString("CARTS.UPDATE");
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM webstore_dev.carts WHERE id = ?;";
+        return dbBundle.getString("CARTS.DELETE");
     }
 
     @Override
-    public Cart create() throws Exception {
+    public Cart create() throws SQLException {
         Cart cart = new Cart();
         return persist(cart);
     }
 
 
-    protected List<Cart> parseResultSet(ResultSet rs) throws Exception {
+    protected List<Cart> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<Cart> result = new LinkedList<>();
-        try {
-            while (rs.next()) {
-                PersistCart card = new PersistCart();
-                card.setId(rs.getInt("id"));
-                card.setUserId(rs.getInt("user_id"));
-                card.setCreatedAt(rs.getDate("created_at"));
-                result.add(card);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        while (rs.next()) {
+            PersistCart card = new PersistCart();
+            card.setId(rs.getInt("id"));
+            card.setUserId(rs.getInt("user_id"));
+            card.setCreatedAt(rs.getDate("created_at"));
+            result.add(card);
         }
+
         return result;
     }
 
-    protected void prepareStatementForUpdate(PreparedStatement statement, Cart object) throws Exception {
-        try {
-            statement.setInt(1, object.getUserId());
-            statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
-            statement.setInt(3, object.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    protected void prepareStatementForUpdate(PreparedStatement statement, Cart object) throws SQLException {
+        statement.setInt(1, object.getUserId());
+        statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
+        statement.setInt(3, object.getId());
     }
 
-    protected void prepareStatementForInsert(PreparedStatement statement, Cart object) throws Exception {
-        try {
-            statement.setInt(1, object.getUserId());
-            statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
-            statement.setBoolean(3, object.isPaid());
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    protected void prepareStatementForInsert(PreparedStatement statement, Cart object) throws SQLException {
+        statement.setInt(1, object.getUserId());
+        statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
     }
 
-    public Cart getByUserId(int userId) throws Exception {
+    public Cart getByUserId(int userId) throws SQLException {
         List<Cart> list;
-        String sql = getSelectQuery();
-        sql += " WHERE user_id = ?";
-        try (PreparedStatement statement = parentFactory.getContext().prepareStatement(sql)) {
-            statement.setInt(1, userId);
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+        String sql = dbBundle.getString("CARTS.FROM_USER_ID");
+        PreparedStatement statement = parentFactory.getContext().prepareStatement(sql);
+        statement.setInt(1, userId);
+        ResultSet rs = statement.executeQuery();
+        list = parseResultSet(rs);
+
+
         if (list == null || list.size() == 0) {
             return null;
         }
+
         if (list.size() > 1) {
-            throw new Exception("Received more than one record.");
+            throw new SQLException("Received more than one record.");
         }
+
         return list.iterator().next();
     }
 }

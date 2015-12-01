@@ -1,23 +1,52 @@
 package ents;
 
-
 import dao.Identified;
 
+
+/**
+ * Entity, that represent user in web store
+ */
 public class User implements Identified<Integer> {
 
-
+    /**
+     * Possible roles in web store:
+     * USER - common user of web store. Can browse categories, products, add them in shopping cart, etc.
+     * ADMIN - administrator of web store. Can block/unblock users, add new products, etc.
+     * BLOCKED - blocked user for some reasons, with no access to web store.
+     */
     public static enum Role {
         USER, ADMIN, BLOCKED;
     }
 
+    /**
+     * Unique user id, PK in database
+     */
     private int id;
+
+    /**
+     * User login, used in authorization
+     */
     private String login;
+
+    /**
+     * User hashing password, used in authorization
+     */
     private String hash;
+
+    /**
+     * User email address
+     */
     private String mail;
+
+    /**
+     * User role (ADMIN, USER, BLOCKED)
+     */
     private Role role;
 
 
-
+    /**
+     * Constructors
+     */
     public User() {
     }
 
@@ -28,6 +57,10 @@ public class User implements Identified<Integer> {
         this.role = Role.USER;
     }
 
+
+    /**
+     * Getters and Setters
+     */
     public Integer getId() {
         return id;
     }

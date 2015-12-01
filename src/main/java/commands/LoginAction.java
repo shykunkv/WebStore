@@ -4,11 +4,13 @@ import ents.Cart;
 import ents.User;
 import manager.CartManager;
 import manager.UserManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class LoginAction extends Action {
@@ -26,17 +28,20 @@ public class LoginAction extends Action {
 
         try {
             User user = userManager.login(login, password);
-            if (user != null) {
+            if (user != null && user.getRole() != User.Role.BLOCKED) {
                 res = "hello.jsp";
                 req.getSession().setAttribute("user", user);
 
                 Cart cart = cartManager.getByUserId(user.getId());
                 req.getSession().setAttribute("cart", cart);
+            } else if (user != null && user.getRole() == User.Role.BLOCKED) {
+                req.setAttribute("message", "Sorry, you are blocked ;( Please contact us with 'shykunkv@gmail.com' if you have soem questions.");
             } else {
                 req.setAttribute("message", "Invalid login or password");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            Logger.getLogger(getClass()).error(e.getMessage());
         }
 
         return res;

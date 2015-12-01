@@ -2,14 +2,41 @@ package ents;
 
 import dao.Identified;
 
+
+/**
+ * Entity, that represent item in shopping cart
+ */
 public class CartItem implements Identified<Integer> {
 
+    /**
+     * Unique id of this item, PK in database
+     */
     private int id;
+
+    /**
+     * Id of product in shopping cart
+     */
     private int productId;
-    private int orderId;
+
+    /**
+     * Quantity if product in shopping cart
+     */
     private int quantity;
+
+    /**
+     * Belong to shipping cart with this id
+     */
+    private int orderId;
+
+    /**
+     * Product from this cart item
+     */
     private Product product = null;
 
+
+    /**
+     *  Constructors
+     */
     public CartItem() {
     }
 
@@ -25,6 +52,11 @@ public class CartItem implements Identified<Integer> {
         this.orderId = orderId;
         this.quantity = quantity;
     }
+
+
+    /**
+     * Getters and setters
+     */
 
     public Product getProduct() {
         return product;

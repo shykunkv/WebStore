@@ -7,60 +7,39 @@ import ents.Cart;
 import ents.CartItem;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CartItemManager {
     private static DaoFactory<Connection> factory = MySqlDaoFactory.getInstance();
 
 
-    public CartItem getById(int cartItemId) {
-        try {
-            MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
-            return cartItemDao.getByPK(cartItemId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return  null;
-        }
+    public CartItem getById(int cartItemId) throws SQLException {
+        MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
+
+        return cartItemDao.getByPK(cartItemId);
     }
 
-    public void delete(CartItem cartItem) {
-        try{
-            MySqlCartItemDao cardItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
-            cardItemDao.delete(cartItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void delete(CartItem cartItem) throws SQLException {
+        MySqlCartItemDao cardItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
+        cardItemDao.delete(cartItem);
     }
 
-    public CartItem create(int productId, int orderId, int quantity) throws Exception {
+    public CartItem create(int productId, int orderId, int quantity) throws SQLException {
+        MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
+        CartItem cartItem = new CartItem(productId, orderId, quantity);
 
-        try {
-            MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
-            CartItem cartItem = new CartItem(productId, orderId, quantity);
-            return cartItemDao.persist(cartItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return cartItemDao.persist(cartItem);
     }
 
-    public void update(CartItem cartItem) {
-        try {
-            MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
-            cartItemDao.update(cartItem);
-        }  catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void update(CartItem cartItem) throws SQLException {
+        MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
+        cartItemDao.update(cartItem);
     }
 
-    List<CartItem> getAllFromCard(int cardId) throws Exception {
-        try{
-            MySqlCartItemDao cardItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
-            return cardItemDao.getAllFromCard(cardId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    List<CartItem> getAllFromCard(int cardId) throws SQLException {
+        MySqlCartItemDao cardItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
+
+        return cardItemDao.getAllFromCard(cardId);
     }
 }

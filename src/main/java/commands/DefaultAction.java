@@ -11,6 +11,7 @@ public class DefaultAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession curSession = request.getSession(false);
         if (curSession != null)
             curSession.invalidate();

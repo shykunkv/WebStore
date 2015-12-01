@@ -3,13 +3,21 @@ package filters;
 import javax.servlet.*;
 import java.io.IOException;
 
+
+/**
+ * Filter to check fields in login page before invoke login action
+ * If thi field are filled correctly - invoke action
+ * If no - return error message to user (to jsp)
+ */
 public class LoginFilter implements Filter {
+
     private FilterConfig filterConfig = null;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         String action = servletRequest.getParameter("action");
+
 
         if (action != null && action.equals("login")) {
 

@@ -6,10 +6,15 @@ import ents.Category;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
+
+    private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
+
 
     private class PersistCategory extends Category {
         public void setId(int id) {
@@ -23,87 +28,71 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, name, description FROM webstore_dev.categories ";
+        return dbBundle.getString("CATEGORIES.SELECT");
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO webstore_dev.categories (name, description) \n" +
-                "VALUES (?, ?);";
+        return dbBundle.getString("CATEGORIES.INSERT");
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE webstore_dev.categories \n" +
-                "SET name = ?, description  = ? \n" +
-                "WHERE id = ?;";
+        return dbBundle.getString("CATEGORIES.UPDATE");
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM webstore_dev.categories WHERE id = ?;";
+        return dbBundle.getString("CATEGORIES.DELETE");
     }
 
     @Override
-    public Category create() throws Exception {
+    public Category create() throws SQLException {
         Category category = new Category();
         return persist(category);
     }
 
 
-    protected List<Category> parseResultSet(ResultSet rs) throws Exception {
+    protected List<Category> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<Category> result = new LinkedList<>();
-        try {
-            while (rs.next()) {
-                PersistCategory category = new PersistCategory();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("name"));
-                category.setDescription(rs.getString("description"));
-                result.add(category);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        while (rs.next()) {
+            PersistCategory category = new PersistCategory();
+            category.setId(rs.getInt("id"));
+            category.setName(rs.getString("name"));
+            category.setDescription(rs.getString("description"));
+            result.add(category);
         }
+
         return result;
     }
 
-    protected void prepareStatementForUpdate(PreparedStatement statement, Category object) throws Exception {
-        try {
-            statement.setString(1, object.getName());
-            statement.setString(2, object.getDescription());
-            statement.setInt(3, object.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    protected void prepareStatementForUpdate(PreparedStatement statement, Category object) throws SQLException {
+        statement.setString(1, object.getName());
+        statement.setString(2, object.getDescription());
+        statement.setInt(3, object.getId());
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, Category object) throws Exception {
-        try {
-            statement.setString(1, object.getName());
-            statement.setString(2, object.getDescription());
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    protected void prepareStatementForInsert(PreparedStatement statement, Category object) throws SQLException {
+        statement.setString(1, object.getName());
+        statement.setString(2, object.getDescription());
     }
 
 
-    public Category getByName(String name) throws Exception {
+    public Category getByName(String name) throws SQLException {
         List<Category> list;
-        String sql = getSelectQuery();
-        sql += " WHERE name = ?";
-        try (PreparedStatement statement = parentFactory.getContext().prepareStatement(sql)) {
-            statement.setString(1, name);
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+        String sql = dbBundle.getString("CATEGORIES.WITH_NAME");
+        PreparedStatement statement = parentFactory.getContext().prepareStatement(sql);
+        statement.setString(1, name);
+        ResultSet rs = statement.executeQuery();
+        list = parseResultSet(rs);
+
         if (list == null || list.size() == 0) {
             return null;
         }
         if (list.size() > 1) {
-            throw new Exception("Received more than one record.");
+            throw new SQLException("Received more than one record.");
         }
         return list.iterator().next();
     }

@@ -1,6 +1,7 @@
 package servlets;
 
 import commands.ActionInvoker;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,19 +28,21 @@ public class MainController extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String page = null;
+        String page;
+
         try {
             page = actionInvoker.invoke(req, resp);
+            Logger.getLogger(this.getClass()).info("page: "+ page);
+
         } catch (ServletException e) {
             e.printStackTrace();
-            //Logger.getLogger(this.getClass()).error(e.getMessage());
+            Logger.getLogger(this.getClass()).error(e.getMessage());
             page = "error.jsp";
         } catch (IOException e) {
             e.printStackTrace();
-            //Logger.getLogger(this.getClass()).error(e.getMessage());
+            Logger.getLogger(this.getClass()).error(e.getMessage());
             page = "error.jsp";
         }
 

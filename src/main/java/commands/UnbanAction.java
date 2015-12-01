@@ -2,11 +2,13 @@ package commands;
 
 import ents.User;
 import manager.UserManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class UnbanAction extends Action {
 
@@ -25,8 +27,9 @@ public class UnbanAction extends Action {
                 user.setRole(User.Role.USER);
                 userManager.update(user);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            Logger.getLogger(getClass()).error(e.getMessage());
         }
 
         return res;

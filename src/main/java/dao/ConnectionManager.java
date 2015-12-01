@@ -1,5 +1,7 @@
 package dao;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -38,7 +40,10 @@ public class ConnectionManager {
     public Connection createInstance() throws SQLException {
         try {
             Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {}
+        } catch (ClassNotFoundException e) {
+            Logger.getLogger(getClass()).error(e.getMessage());
+            e.printStackTrace();
+        }
         Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
         return connection;
     }
@@ -49,6 +54,9 @@ public class ConnectionManager {
         }
         try {
             connections.put(connection);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+            Logger.getLogger(getClass()).error(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

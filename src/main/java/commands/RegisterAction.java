@@ -2,18 +2,16 @@ package commands;
 
 import ents.User;
 import manager.UserManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class RegisterAction extends Action {
-
-    private static final String LOGIN_PARAM = "login";
-    private static final String PASSWORD_PARAM = "password";
-    private  static final String MAIL_PARAM = "mail";
 
 
     private UserManager userManager = new UserManager();
@@ -21,9 +19,9 @@ public class RegisterAction extends Action {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String login = req.getParameter(LOGIN_PARAM);
-        String password = req.getParameter(PASSWORD_PARAM);
-        String mail = req.getParameter(MAIL_PARAM);
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        String mail = req.getParameter("mail");
 
         String res = "register.jsp";
 
@@ -37,8 +35,9 @@ public class RegisterAction extends Action {
             } else {
                 req.setAttribute("login_message", "Already used login");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            Logger.getLogger(getClass()).error(e.getMessage());
         }
 
         return res;

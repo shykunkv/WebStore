@@ -3,12 +3,13 @@ package commands;
 import ents.Category;
 import manager.CategoryManager;
 import manager.ProductManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import java.sql.SQLException;
 
 
 public class AddProductAction extends Action {
@@ -18,26 +19,28 @@ public class AddProductAction extends Action {
 
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String res = "main?action=category&id=";
 
-        String categoryName = request.getParameter("category");
-        Category category = categoryManager.getCategoryByName(categoryName);
+        try {
+            String categoryName = request.getParameter("category");
+            Category category = categoryManager.getCategoryByName(categoryName);
 
-        if (category != null) {
-            res += category.getId();
+            if (category != null) {
+                res += category.getId();
 
-            String productName = request.getParameter("name");
-            String productBrand = request.getParameter("brand");
-            Double productPrice = Double.parseDouble(request.getParameter("price"));
-            String productImage = request.getParameter("image");
-            String productDescription = request.getParameter("description");
-            try {
+                String productName = request.getParameter("name");
+                String productBrand = request.getParameter("brand");
+                Double productPrice = Double.parseDouble(request.getParameter("price"));
+                String productImage = request.getParameter("image");
+                String productDescription = request.getParameter("description");
+
                 productManager.create(productName, productBrand, productPrice, productDescription, category.getId(), productImage);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.getLogger(getClass()).error(e.getMessage());
         }
 
         return res;

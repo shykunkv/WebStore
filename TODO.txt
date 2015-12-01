@@ -1,8 +1,5 @@
 TODO list:
 
-1. Resource bundle query
-2. Error handler (servlet)
 3. javadoc
-4. Exception
 7. sql scripts
 8. language

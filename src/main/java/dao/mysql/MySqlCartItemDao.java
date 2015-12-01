@@ -7,10 +7,14 @@ import ents.CartItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
+
+    private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
 
     private class PersistCartItem extends CartItem {
         public void setId(int id) {
@@ -24,89 +28,72 @@ public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
 
     @Override
     public String getSelectQuery() {
-        return "SELECT id, product_id, cart_id, quantity  FROM webstore_dev.cart_items ";
+        return dbBundle.getString("CART_ITEMS.SELECT");
     }
 
     @Override
     public String getCreateQuery() {
-        return "INSERT INTO webstore_dev.cart_items (product_id, cart_id, quantity) \n" +
-                "VALUES (?, ?, ?);";
+        return dbBundle.getString("CART_ITEMS.INSERT");
     }
 
     @Override
     public String getUpdateQuery() {
-        return "UPDATE webstore_dev.cart_items \n" +
-                "SET product_id = ?, cart_id  = ?, quantity = ?\n" +
-                "WHERE id = ?;";
+        return dbBundle.getString("CART_ITEMS.UPDATE");
     }
 
     @Override
     public String getDeleteQuery() {
-        return "DELETE FROM webstore_dev.cart_items WHERE id = ?;";
+        return dbBundle.getString("CART_ITEMS.DELETE");
     }
 
     @Override
-    public CartItem create() throws Exception {
+    public CartItem create() throws SQLException {
         CartItem cartItem = new CartItem();
         return persist(cartItem);
     }
 
 
-    protected List<CartItem> parseResultSet(ResultSet rs) throws Exception {
+    protected List<CartItem> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<CartItem> result = new LinkedList<>();
-        try {
-            while (rs.next()) {
-                PersistCartItem cardItem = new PersistCartItem();
-                cardItem.setId(rs.getInt("id"));
-                cardItem.setProductId(rs.getInt("product_id"));
-                cardItem.setOrderId(rs.getInt("cart_id"));
-                cardItem.setQuantity(rs.getInt("quantity"));
-                result.add(cardItem);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        while (rs.next()) {
+            PersistCartItem cardItem = new PersistCartItem();
+            cardItem.setId(rs.getInt("id"));
+            cardItem.setProductId(rs.getInt("product_id"));
+            cardItem.setOrderId(rs.getInt("cart_id"));
+            cardItem.setQuantity(rs.getInt("quantity"));
+            result.add(cardItem);
         }
+
         return result;
     }
 
-    protected void prepareStatementForUpdate(PreparedStatement statement, CartItem object) throws Exception {
-        try {
-            statement.setInt(1, object.getProductId());
-            statement.setInt(2, object.getOrderId());
-            statement.setInt(3, object.getQuantity());
-            statement.setInt(4, object.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    protected void prepareStatementForUpdate(PreparedStatement statement, CartItem object) throws SQLException {
+        statement.setInt(1, object.getProductId());
+        statement.setInt(2, object.getOrderId());
+        statement.setInt(3, object.getQuantity());
+        statement.setInt(4, object.getId());
     }
 
-    protected void prepareStatementForInsert(PreparedStatement statement, CartItem object) throws Exception {
-        try {
-            statement.setInt(1, object.getProductId());
-            statement.setInt(2, object.getOrderId());
-            statement.setInt(3, object.getQuantity());
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    protected void prepareStatementForInsert(PreparedStatement statement, CartItem object) throws SQLException {
+        statement.setInt(1, object.getProductId());
+        statement.setInt(2, object.getOrderId());
+        statement.setInt(3, object.getQuantity());
     }
 
 
 
-    public List<CartItem> getAllFromCard(int cardId) {
+    public List<CartItem> getAllFromCard(int cardId) throws SQLException {
 
-        List<CartItem> result = null;
-        String sql = getSelectQuery();
-        sql += "WHERE cart_id = ?";
+        List<CartItem> result;
+        String sql = dbBundle.getString("CART_ITEMS.FROM_CART");
 
-        try (Connection connection = parentFactory.getContext()) {
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, cardId);
-                ResultSet rs = statement.executeQuery();
-                result = parseResultSet(rs);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Connection connection = parentFactory.getContext();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setInt(1, cardId);
+        ResultSet rs = statement.executeQuery();
+        result = parseResultSet(rs);
 
         return result;
     }

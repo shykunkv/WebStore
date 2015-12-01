@@ -7,11 +7,13 @@ import ents.User;
 import manager.CartItemManager;
 import manager.CartManager;
 import manager.ProductManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class AddToCartAction extends Action {
@@ -20,7 +22,7 @@ public class AddToCartAction extends Action {
     private CartItemManager cartItemManager = new CartItemManager();
     private ProductManager productManager = new ProductManager();
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         User curUser = (User) request.getSession().getAttribute("user");
         Cart curCart = (Cart) request.getSession().getAttribute("cart");
@@ -36,8 +38,10 @@ public class AddToCartAction extends Action {
             cartItem.setProduct(product);
             curCart.getCartItems().add(cartItem);
             request.getSession().setAttribute("cart", curCart);
-        }catch (Exception e) {
+        } catch (SQLException e) {
+            res = "/error";
             e.printStackTrace();
+            Logger.getLogger(getClass()).error(e.getMessage());
         }
 
         return res;

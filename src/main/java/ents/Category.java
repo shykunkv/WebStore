@@ -2,14 +2,32 @@ package ents;
 
 import dao.Identified;
 
+
+/**
+ * Entity, that represent category for products
+ * 'Computers', 'Bicycles', etc.
+ */
 public class Category implements Identified<Integer> {
 
-
+    /**
+     * Unique category id, PK in database
+     */
     private int id;
+
+    /**
+     * Category name
+     */
     private String name;
+
+    /**
+     * Categgory description
+     */
     private String description;
 
 
+    /**
+     * Constructors
+     */
     public Category() {}
 
     public Category(String name, String description) {
@@ -23,6 +41,10 @@ public class Category implements Identified<Integer> {
         this.description = description;
     }
 
+
+    /**
+     * Getters and Setters
+     */
     public Integer getId() {
         return id;
     }

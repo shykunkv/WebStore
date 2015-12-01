@@ -12,7 +12,17 @@
                 </li>
 
                 <c:if test="${user != null && user.role == 'USER'}">
-                    <li><a href="../cart.jsp">My Cart</a></li>
+                    <li><a href="../cart.jsp">
+                        My Cart
+                        <c:if test="${cart != null}">
+                            <span class="badge">
+                               ${cart.size}
+                            </span>
+                        </c:if>
+                        <c:if test="${cart == null}">
+                            <span class="badge">0</span>
+                        </c:if>
+                    </a></li>
                 </c:if>
 
                 <c:if test="${user != null && user.role == 'ADMIN'}">

@@ -4,6 +4,13 @@ package filters;
 import javax.servlet.*;
 import java.io.IOException;
 
+
+
+/**
+ * Filter to check fields in registration page before invoke register action
+ * If thi field are filled correctly - invoke action
+ * If no - return error message to user (to jsp)
+ */
 public class RegistrationFilter implements Filter {
 
     private FilterConfig filterConfig = null;

@@ -4,6 +4,7 @@ import dao.ConnectionManager;
 import dao.DaoFactory;
 import dao.GenericDao;
 import ents.*;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,18 +18,22 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
     private Map<Class, DaoCreator> creators;
 
 
-    public GenericDao getDao(Class dtoClass) throws Exception {
-        DaoCreator creator = creators.get(dtoClass);
+    public GenericDao getDao(Class daoClass) throws IllegalArgumentException {
+        DaoCreator creator = creators.get(daoClass);
         if (creator == null) {
-            throw new Exception("Dao object for " + dtoClass + " not found.");
+            throw new IllegalArgumentException("Dao object for " + daoClass + " not found.");
         }
         return creator.create(this);
     }
 
-    public Connection getContext() throws Exception {
+    public Connection getContext() {
         try {
             return connectionManager.getConnection();
         } catch (SQLException e) {
+            Logger.getLogger(getClass()).error(e.getMessage());
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            Logger.getLogger(getClass()).error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -40,8 +45,6 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
         connectionManager = new ConnectionManager();
 
         creators = new HashMap();
-
-
         creators.put(User.class, new DaoCreator() {
             public GenericDao create(DaoFactory factory) {
                 return new MySqlUserDao(factory);

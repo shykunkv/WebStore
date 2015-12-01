@@ -1,6 +1,5 @@
 package commands;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,12 +7,24 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Class that provides mapping action with it name in jsp pages.
+ * Implemented as Singleton pattern
+ */
 public class ActionInvoker {
 
     private static ActionInvoker instance = null;
     private Map<String, Action> actionMap = new HashMap();
 
+
+    /**
+     * Default constructor
+     */
     private ActionInvoker() {
+        /**
+         * Put all available actions to map
+         */
         actionMap.put("default", new DefaultAction());
         actionMap.put("login", new LoginAction());
         actionMap.put("register", new RegisterAction());
@@ -35,6 +46,16 @@ public class ActionInvoker {
         actionMap.put("unban", new UnbanAction());
     }
 
+
+    /**
+     * Call some specific action with name from request.
+     * If no such action name in map - call default action
+     * @param req  request from servlet
+     * @param resp response from servlet
+     * @return page to show after concrete action
+     * @throws ServletException
+     * @throws IOException
+     */
     public String invoke(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String actionName = req.getParameter("action");
@@ -47,7 +68,10 @@ public class ActionInvoker {
         return action.execute(req, resp);
     }
 
-
+    /**
+     * Get instance of this class
+     * @return singleton instance of this class
+     */
     public static ActionInvoker getInstance() {
         if (instance == null) {
             instance = new ActionInvoker();

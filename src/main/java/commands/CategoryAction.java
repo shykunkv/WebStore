@@ -3,11 +3,13 @@ package commands;
 import ents.Category;
 import ents.Product;
 import manager.CategoryManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryAction extends Action {
@@ -20,9 +22,9 @@ public class CategoryAction extends Action {
 
         String res = "category.jsp";
 
-        int categoryId = Integer.parseInt(request.getParameter("id"));
-        String name = categoryManager.getById(categoryId).getName();
         try {
+            int categoryId = Integer.parseInt(request.getParameter("id"));
+            String name = categoryManager.getById(categoryId).getName();
             List<Category> categoryList = categoryManager.getAllCategories();
             List<Product> productsList = categoryManager.getAllFromCategory(categoryId);
             if (productsList != null) {
@@ -30,8 +32,10 @@ public class CategoryAction extends Action {
                 request.setAttribute("categories", categoryList);
                 request.setAttribute("name", name);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            Logger.getLogger(getClass()).error(e.getMessage());
+            res = "/error";
         }
 
         return res;

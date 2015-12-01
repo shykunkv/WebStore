@@ -2,18 +2,55 @@ package ents;
 
 import dao.Identified;
 
+/**
+ * Entity, that represent product in web store
+ */
 public class Product implements Identified<Integer> {
 
-
+    /**
+     * Unique id for product, PK in database
+     */
     private  int id;
+
+    /**
+     * Product name
+     */
     private String name;
+
+    /**
+     * Product brand
+     */
     private String brand;
+
+    /**
+     * Product price in $
+     */
     private double price;
+
+    /**
+     * Product quantity in stock
+     */
     private int quantity;
+
+    /**
+     * Product description
+     */
     private  String description;
+
+    /**
+     * Product belong to category with this id
+     */
     private int categoryId;
+
+    /**
+     * URL to product image
+     */
     private String image;
 
+
+    /**
+     * Constructors
+     */
     public Product() {
     }
 
@@ -37,6 +74,11 @@ public class Product implements Identified<Integer> {
         this.categoryId = categoryId;
         this.image = image;
     }
+
+
+    /**
+     * Getters and Setters
+     */
 
     public Integer getId() {
         return id;

@@ -1,15 +1,21 @@
 package tags;
 
 import ents.Product;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.List;
 
 
+/**
+ * Tag that print category (all products from this category) to jsp page
+ */
 public class ShowCategory extends TagSupport {
 
+
+    /**
+     * Path to image folder
+     */
     private static String IMAGE_URL = "images/";
 
     public int doStartTag() throws JspException {
@@ -40,6 +46,7 @@ public class ShowCategory extends TagSupport {
             }
         }
 
+        // tag with empty body
         return SKIP_BODY;
     }
 }
