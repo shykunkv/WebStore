@@ -1,6 +1,5 @@
 package dao.mysql;
 
-
 import dao.AbstractJDBCDao;
 import dao.DaoFactory;
 import ents.CartItem;
@@ -8,7 +7,6 @@ import ents.CartItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 

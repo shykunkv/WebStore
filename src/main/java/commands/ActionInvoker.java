@@ -31,8 +31,8 @@ public class ActionInvoker {
         actionMap.put("deleteProduct", new DeleteProductAction());
         actionMap.put("editProduct", new EditProductAction());
         actionMap.put("searchUser", new SearchUserAction());
-        actionMap.put("banAction", new BanAction());
-        actionMap.put("unbanAction", new UnbanAction());
+        actionMap.put("ban", new BanAction());
+        actionMap.put("unban", new UnbanAction());
     }
 
     public String invoke(HttpServletRequest req, HttpServletResponse resp)

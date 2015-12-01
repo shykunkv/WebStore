@@ -1,6 +1,5 @@
 package commands;
 
-
 import ents.Category;
 import manager.CategoryManager;
 

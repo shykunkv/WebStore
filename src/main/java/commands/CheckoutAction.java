@@ -2,7 +2,6 @@ package commands;
 
 import ents.Cart;
 import ents.CartItem;
-import ents.User;
 import manager.CartItemManager;
 import manager.CartManager;
 

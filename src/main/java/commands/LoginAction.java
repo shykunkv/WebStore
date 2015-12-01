@@ -10,13 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Kostya on 24.11.2015.
- */
-public class LoginAction extends Action {
 
-    private static final String LOGIN_PARAM = "login";
-    private static final String PASSWORD_PARAM = "password";
+public class LoginAction extends Action {
 
     private UserManager userManager = new UserManager();
     private CartManager cartManager = new CartManager();
@@ -38,7 +33,7 @@ public class LoginAction extends Action {
                 Cart cart = cartManager.getByUserId(user.getId());
                 req.getSession().setAttribute("cart", cart);
             } else {
-                req.setAttribute("message", "Invadil login or password!");
+                req.setAttribute("message", "Invalid login or password");
             }
         } catch (Exception e) {
             e.printStackTrace();

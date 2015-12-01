@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
     <jsp:include page="layouts/resources.jsp" />
-    <jsp:include page="layouts/resources.jsp" />
 </head>
 
 <body>

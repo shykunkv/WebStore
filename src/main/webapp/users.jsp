@@ -5,7 +5,6 @@
 <html lang="en">
 <head>
     <jsp:include page="layouts/resources.jsp" />
-    <jsp:include page="layouts/resources.jsp" />
 </head>
 
 <body>
@@ -40,7 +39,7 @@
 
                                 <c:if test="${founded_user.role == 'USER'}">
                                     <form action="/main" method="post">
-                                        <input type="hidden" name="action" value="banAction"/>
+                                        <input type="hidden" name="action" value="ban"/>
                                         <input type="hidden" name="login" value="<c:out value="${founded_user.login}"/> "/>
                                         <button type="submit" class="btn btn-default">Ban user</button>
                                     </form>
@@ -48,7 +47,7 @@
 
                                 <c:if test="${founded_user.role == 'BLOCKED'}">
                                     <form action="/main" method="post">
-                                        <input type="hidden" name="action" value="unbanAction"/>
+                                        <input type="hidden" name="action" value="unban"/>
                                         <input type="hidden" name="login" value="<c:out value="${founded_user.login}"/> "/>
                                         <button type="submit" class="btn btn-default">Unban user</button>
                                     </form>

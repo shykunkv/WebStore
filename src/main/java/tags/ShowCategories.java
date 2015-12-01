@@ -38,7 +38,7 @@ public class ShowCategories extends TagSupport {
 
                 if (user != null && user.getRole() == User.Role.ADMIN) {
                     out.print("<div class=\"row\"><div class=\"col-sm-4\">");
-                    out.print("<button type=\"button\" class=\"btn btn-default btn-sm\" data-toggle=\"modal\" data-target=\"#add\">" +
+                    out.print("<button type=\"button\" class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#add\">" +
                             "<span class = \"glyphicon glyphicon-plus\"/> category" +
                             "</button>");
                     out.print("</div></div>");

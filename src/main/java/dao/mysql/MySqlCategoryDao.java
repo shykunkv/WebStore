@@ -3,21 +3,12 @@ package dao.mysql;
 import dao.AbstractJDBCDao;
 import dao.DaoFactory;
 import ents.Category;
-import ents.User;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
-/**
- * Created by Kostya on 26.11.2015.
- */
 public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
 
     private class PersistCategory extends Category {

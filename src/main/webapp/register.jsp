@@ -1,8 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-	<jsp:include page="layouts/resources.jsp" />
 	<jsp:include page="layouts/resources.jsp" />
 </head>
 
@@ -18,15 +18,19 @@
 			<div class="inner cover">
 				<form action="/main" method="POST">
 					<input type="hidden" name="action" value="register"/>
-					<c:if test="${message ne null}">
-						<c:out value='${message}'/>
-					</c:if>
+
 					<div class="row">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<input type="text" name="login" class="form-control" placeholder="Login"/>
 						</div>
-						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<c:if test="${login_message != null}">
+								<h4><span class="label label-danger">
+								<c:out value='${login_message}'/>
+								</span></h4>
+							</c:if>
+						</div>
 					</div>
 					<br />
 					<div class="row">
@@ -34,7 +38,13 @@
 						<div class="col-md-4">
 							<input type="text" name="mail" class="form-control" placeholder="Email address"/>
 						</div>
-						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<c:if test="${mail_message != null}">
+								<h4><span class="label label-danger">
+								<c:out value='${mail_message}'/>
+								</span></h4>
+							</c:if>
+						</div>
 					</div>
 					<br />
 					<div class="row">
@@ -42,7 +52,13 @@
 						<div class="col-md-4">
 							<input type="password" name="password" class="form-control" placeholder="Password"/>
 						</div>
-						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<c:if test="${password_message != null}">
+								<h4><span class="label label-danger">
+								<c:out value='${password_message}'/>
+								</span></h4>
+							</c:if>
+						</div>
 					</div>
 					<br />
 					<div class="row">

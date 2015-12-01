@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
 	<jsp:include page="layouts/resources.jsp" />
-	<jsp:include page="layouts/resources.jsp" />
 </head>
 
 
@@ -92,7 +91,6 @@
 											<div class="modal-content">
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4>New product</h4>
 												</div>
 
 												<div class="modal-body">

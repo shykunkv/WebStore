@@ -1,17 +1,13 @@
 package commands;
 
 import ents.Category;
-import manager.CartManager;
 import manager.CategoryManager;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Kostya on 29.11.2015.
- */
+
 public class AddCategoryAction extends Action {
 
 

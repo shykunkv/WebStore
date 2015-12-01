@@ -7,7 +7,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="name1">Modal Header</h4>
             </div>
 
             <div class="modal-body">
@@ -18,16 +17,13 @@
                     <input type = "hidden" name = "action" value="editCategory"/>
                     <input class="old_name" type="hidden" name="old_name"/>;<button type="submit" class="btn btn-default">Save</button>
                 </form>
-            </div>
-
-            <div class="modal-footer">
-
                 <form action="/main" method="POST">
                     <input type="hidden" name="action" value="deleteCategory"/>
                     <input class="del_name" type="hidden" name="name"/>;
                     <button type="submit" class="btn btn-default">Delete</button>
                 </form>
             </div>
+
 
         </div>
 

@@ -2,16 +2,13 @@ package commands;
 
 import ents.User;
 import manager.UserManager;
-import utils.HashUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Kostya on 26.11.2015.
- */
+
 public class RegisterAction extends Action {
 
     private static final String LOGIN_PARAM = "login";
@@ -30,7 +27,7 @@ public class RegisterAction extends Action {
 
         String res = "register.jsp";
 
-        User user = null;
+        User user;
 
         try {
             user = userManager.get(login);
@@ -38,7 +35,7 @@ public class RegisterAction extends Action {
                 user = userManager.create(login, password, mail);
                 res = "login.jsp";
             } else {
-                req.setAttribute("message", "User already exist!");
+                req.setAttribute("login_message", "Already used login");
             }
         } catch (Exception e) {
             e.printStackTrace();

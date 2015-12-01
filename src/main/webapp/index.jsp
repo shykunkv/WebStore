@@ -3,7 +3,6 @@
 <html lang="en">
   <head>
     <jsp:include page="layouts/resources.jsp" />
-    <jsp:include page="layouts/resources.jsp" />
   </head>
 
   <body>
@@ -16,7 +15,7 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Welcome to Django online store.</h1>
+            <h1 class="cover-heading">Welcome to Shykun online store.</h1>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
             <p class="lead"><a href="/main?action=catalog" class="btn btn-lg btn-default"> Shop now </a></p>
           </div>

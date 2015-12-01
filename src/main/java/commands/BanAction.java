@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Admin on 11/30/15.
- */
+
 public class BanAction extends Action {
 
     private UserManager userManager = new UserManager();

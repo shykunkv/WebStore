@@ -19,12 +19,6 @@ public class UserManager {
             MySqlUserDao userDao = (MySqlUserDao) factory.getDao(User.class);
 
             User user = userDao.getByLogin(login);
-            //if (user != null) {
-                //user.setOrders(orderDao.getAllBelonging(user));
-                //for (Order o : user.getOrders()) {
-                    //o.setUser(user);
-                //}
-            //}
 
             return user;
         } catch (Exception e) {

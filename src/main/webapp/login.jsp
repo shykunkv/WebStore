@@ -19,8 +19,12 @@
 				<form action="/main" method="POST">
 					<input type="hidden" name="action" value="login"/>
 					<c:if test="${message ne null}">
-						<c:out value='${message}'/>
+						<div class="row"><h4><span class="label label-danger">
+							<c:out value='${message}'/>
+						</span></h4></div>
+						<br />
 					</c:if>
+
 					<div class="row">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">

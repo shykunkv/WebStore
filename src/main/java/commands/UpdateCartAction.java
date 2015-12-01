@@ -2,18 +2,13 @@ package commands;
 
 import ents.Cart;
 import ents.CartItem;
-import ents.User;
 import manager.CartItemManager;
-import manager.CartManager;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Kostya on 29.11.2015.
- */
+
 public class UpdateCartAction extends Action {
 
     private CartItemManager cartItemManager = new CartItemManager();
