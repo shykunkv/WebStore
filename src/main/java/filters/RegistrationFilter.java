@@ -5,7 +5,6 @@ import javax.servlet.*;
 import java.io.IOException;
 
 
-
 /**
  * Filter to check fields in registration page before invoke register action
  * If thi field are filled correctly - invoke action

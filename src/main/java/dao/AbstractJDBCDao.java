@@ -7,59 +7,69 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Абстрактный класс предоставляющий базовую реализацию CRUD операций с использованием JDBC.
+ * Abstarct class that perform basic CRUD operations with JDBC.
  *
- * @param <T>  тип объекта персистенции
- * @param <PK> тип первичного ключа
+ * @param <T>  persistance object type
+ * @param <PK> primary key type
  */
 public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Integer> implements GenericDao<T, PK> {
 
+    /**
+     * Connection to database
+     */
     protected DaoFactory<Connection> parentFactory;
 
     /**
-     * Возвращает sql запрос для получения всех записей.
-     * <p/>
+     * Return select query
      * SELECT * FROM [Table]
      */
     public abstract String getSelectQuery();
 
     /**
-     * Возвращает sql запрос для вставки новой записи в базу данных.
-     * <p/>
+     * Return sql query to insert new item
      * INSERT INTO [Table] ([column, column, ...]) VALUES (?, ?, ...);
      */
     public abstract String getCreateQuery();
 
     /**
-     * Возвращает sql запрос для обновления записи.
-     * <p/>
+     * Return sql query to update item
      * UPDATE [Table] SET [column = ?, column = ?, ...] WHERE id = ?;
      */
     public abstract String getUpdateQuery();
 
     /**
-     * Возвращает sql запрос для удаления записи из базы данных.
-     * <p/>
+     * Return sql query for delete some row
      * DELETE FROM [Table] WHERE id= ?;
      */
     public abstract String getDeleteQuery();
 
     /**
-     * Разбирает ResultSet и возвращает список объектов соответствующих содержимому ResultSet.
+     * Parse result set and return list of items in this set
+     *
+     * @param rs Result set to parse
      */
     protected abstract List<T> parseResultSet(ResultSet rs) throws SQLException;
 
     /**
-     * Устанавливает аргументы insert запроса в соответствии со значением полей объекта object.
+     * Set arguments for insert query
+     *
+     * @param statement insert statement without parameters
+     * @param object from which we take parameters
+     * @throws SQLException
      */
     protected abstract void prepareStatementForInsert(PreparedStatement statement, T object) throws SQLException;
 
     /**
-     * Устанавливает аргументы update запроса в соответствии со значением полей объекта object.
+     * Set arguments for update query
+     *
+     * @param statement insert statement without parameters
+     * @param object from which we take parameters
+     * @throws SQLException
      */
     protected abstract void prepareStatementForUpdate(PreparedStatement statement, T object) throws SQLException;
 
 
+    @Override
     public T persist(T object) throws SQLException {
         T persistInstance;
         Connection connection = parentFactory.getContext();
@@ -85,7 +95,7 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         return persistInstance;
     }
 
-
+    @Override
     public T getByPK(Integer key) throws SQLException {
         List<T> list;
         Connection connection = parentFactory.getContext();
@@ -105,7 +115,7 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         return list.iterator().next();
     }
 
-
+    @Override
     public void update(T object) throws SQLException {
         String sql = getUpdateQuery();
         Connection connection = parentFactory.getContext();
@@ -118,7 +128,7 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
 
     }
 
-
+    @Override
     public void delete(T object) throws SQLException {
         String sql = getDeleteQuery();
         PreparedStatement statement = parentFactory.getContext().prepareStatement(sql);
@@ -133,7 +143,7 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
 
     }
 
-
+    @Override
     public List<T> getAll() throws SQLException {
         List<T> list;
         String sql = getSelectQuery();
@@ -144,7 +154,9 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         return list;
     }
 
-
+    /**
+     * Constructor
+     */
     public AbstractJDBCDao(DaoFactory < Connection > parentFactory) {
         this.parentFactory = parentFactory;
     }

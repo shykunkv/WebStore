@@ -10,8 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
+/**
+ * Edit product in web store.
+ * Handle 'edit' button on the product page.
+ * Used only by ADMIN users
+ */
 public class EditProductAction extends Action {
 
+    /**
+     * Manager that provide work with database (product table)
+     */
     private ProductManager productManager = new ProductManager();
 
     @Override
@@ -25,19 +34,22 @@ public class EditProductAction extends Action {
             if (product != null) {
                 res += product.getCategoryId();
 
+
+                // get new parameters for product
                 String newName = request.getParameter("name");
                 String newBrand = request.getParameter("brand");
                 double newPrice = Double.parseDouble(request.getParameter("price"));
                 String newImage = request.getParameter("image");
                 String newDescription = request.getParameter("description");
 
-
+                // set parameters
                 product.setName(newName);
                 product.setBrand(newBrand);
                 product.setPrice(newPrice);
                 product.setImage(newImage);
                 product.setDescription(newDescription);
 
+                // update product in database
                 productManager.update(product);
             } else {
                 res = "/main?action=catalog";

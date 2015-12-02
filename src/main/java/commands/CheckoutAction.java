@@ -13,9 +13,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
+/**
+ * Checkout action, that delete user's current shopping cart with all products in it
+ * Handle 'checkout' button on the shopping cart page.
+ */
 public class CheckoutAction extends Action {
 
+    /**
+     * Manager that provide work with database (cart item table)
+     */
     private CartItemManager cartItemManager = new CartItemManager();
+
+    /**
+     * Manager that provide work with database (cart table)
+     */
     private CartManager cartManager = new CartManager();
 
     @Override

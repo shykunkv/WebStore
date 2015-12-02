@@ -11,10 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+/**
+ * Add new product to web store with specified values from jsp page
+ * Handle '+ product' button. Used only by ADMIN users
+ */
 public class AddProductAction extends Action {
 
+    /**
+     * Manager that provide work with database (category table)
+     */
     private CategoryManager categoryManager = new CategoryManager();
+
+    /**
+     * Manager that provide work with database (product table)
+     */
     private ProductManager productManager = new ProductManager();
 
 
@@ -30,6 +40,7 @@ public class AddProductAction extends Action {
             if (category != null) {
                 res += category.getId();
 
+                //get parameter from jsp inputs
                 String productName = request.getParameter("name");
                 String productBrand = request.getParameter("brand");
                 Double productPrice = Double.parseDouble(request.getParameter("price"));
@@ -37,6 +48,8 @@ public class AddProductAction extends Action {
                 String productDescription = request.getParameter("description");
 
                 productManager.create(productName, productBrand, productPrice, productDescription, category.getId(), productImage);
+            } else {
+                res = "main?action=catalog";
             }
         } catch (SQLException e) {
             e.printStackTrace();

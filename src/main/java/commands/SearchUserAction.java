@@ -11,8 +11,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
+/**
+ * Search user with login in system.
+ * Handle 'search' button on the users page.
+ * Used only by ADMIN users.
+ */
 public class SearchUserAction extends Action {
 
+    /**
+     * Manager that provide work with database (user table)
+     */
     private UserManager userManager = new UserManager();
 
     @Override

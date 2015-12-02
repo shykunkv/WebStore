@@ -12,10 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+/**
+ * This action control's login users to web store
+ * Handle 'log in' button on the login page
+ */
 public class LoginAction extends Action {
 
+
+    /**
+     * Manager that provide work with database (user table)
+     */
     private UserManager userManager = new UserManager();
+
+    /**
+     * Manager that provide work with database (cart table)
+     */
     private CartManager cartManager = new CartManager();
 
     @Override
@@ -28,13 +39,14 @@ public class LoginAction extends Action {
 
         try {
             User user = userManager.login(login, password);
+
             if (user != null && user.getRole() != User.Role.BLOCKED) {
                 res = "hello.jsp";
                 req.getSession().setAttribute("user", user);
 
                 Cart cart = cartManager.getByUserId(user.getId());
                 req.getSession().setAttribute("cart", cart);
-            } else if (user != null && user.getRole() == User.Role.BLOCKED) {
+            } else if (user != null && user.getRole() == User.Role.BLOCKED) { // if user is blocked
                 req.setAttribute("message", "Sorry, you are blocked ;( Please contact us with 'shykunkv@gmail.com' if you have soem questions.");
             } else {
                 req.setAttribute("message", "Invalid login or password");

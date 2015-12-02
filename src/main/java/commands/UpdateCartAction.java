@@ -12,8 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
+/**
+ * Update cart item (with new quantity) in shopping cart.
+ * Handle 'Update' button on the cart page.
+ */
 public class UpdateCartAction extends Action {
 
+    /**
+     * Manager that provide work with database (cart item table)
+     */
     private CartItemManager cartItemManager = new CartItemManager();
 
     @Override

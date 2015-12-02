@@ -10,9 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+/**
+ * Delete product from web store using id from jsp input.
+ * Handle 'Delete' button from product editing page.
+ * Used only by ADMIN users.
+ */
 public class DeleteProductAction extends Action {
 
+
+    /**
+     * Manager that provide work with database (product table)
+     */
     private ProductManager productManager = new ProductManager();
 
     @Override
@@ -27,7 +35,7 @@ public class DeleteProductAction extends Action {
                 res += product.getCategoryId();
                 productManager.delete(product);
             } else {
-                res = "index.jsp";
+                res = "/main?action=catalog";
             }
         } catch (SQLException e) {
             e.printStackTrace();

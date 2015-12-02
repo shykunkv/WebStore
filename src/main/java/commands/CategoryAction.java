@@ -12,8 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Show some specified category (list of all products in this category)
+ */
 public class CategoryAction extends Action {
 
+
+    /**
+     * Manager that provide work with database (category table)
+     */
     private CategoryManager categoryManager = new CategoryManager();
 
 
@@ -24,12 +31,15 @@ public class CategoryAction extends Action {
 
         try {
             int categoryId = Integer.parseInt(request.getParameter("id"));
+
             String name = categoryManager.getById(categoryId).getName();
             List<Category> categoryList = categoryManager.getAllCategories();
             List<Product> productsList = categoryManager.getAllFromCategory(categoryId);
+
+            request.setAttribute("categories", categoryList);
+
             if (productsList != null) {
                 request.setAttribute("products", productsList);
-                request.setAttribute("categories", categoryList);
                 request.setAttribute("name", name);
             }
         } catch (SQLException e) {

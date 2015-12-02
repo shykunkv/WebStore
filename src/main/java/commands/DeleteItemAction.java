@@ -12,8 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
+/**
+ * Delete item from shopping cart. Handle 'Delete' button on the cart page.
+ * User by all users.
+ */
 public class DeleteItemAction extends Action {
 
+    /**
+     * Manager that provide work with database (cart item table)
+     */
     private CartItemManager cartItemManager = new CartItemManager();
 
 
@@ -28,9 +35,9 @@ public class DeleteItemAction extends Action {
             Cart cart = (Cart) request.getSession().getAttribute("cart");
 
             for (CartItem ci: cart.getCartItems()) {
-                if (ci.getId() == cartItemId) {
-                    cart.getCartItems().remove(ci);
-                    cartItemManager.delete(ci);
+                if (ci.getId() == cartItemId) { // find right cart item in cart
+                    cart.getCartItems().remove(ci);  // delete it from cart
+                    cartItemManager.delete(ci); // and from database
                     break;
                 }
             }

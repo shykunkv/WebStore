@@ -11,9 +11,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
+/**
+ * Delete category from web store. Handle 'Delete' button in category edition.
+ * Used only by ADMIN users.
+ */
 public class DeleteCategoryAction extends Action {
 
 
+    /**
+     *
+     */
     private CategoryManager categoryManager = new CategoryManager();
 
     @Override

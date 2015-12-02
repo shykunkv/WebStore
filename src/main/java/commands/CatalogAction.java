@@ -11,8 +11,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Show catalog (list of the categories and 'hot' products)
+ * Handle 'Catalog' button. Used by all users.
+ */
 public class CatalogAction extends Action {
 
+
+    /**
+     * Manager that provide work with database (category table)
+     */
     private CategoryManager categoryManager = new CategoryManager();
 
     @Override
@@ -21,9 +29,9 @@ public class CatalogAction extends Action {
         String res = "catalog.jsp";
 
         try {
-            List<Category> categoryList = categoryManager.getAllCategories();
+            List<Category> categoryList = categoryManager.getAllCategories(); // get all categories from database
             if (categoryList != null) {
-                req.setAttribute("categories", categoryList);
+                req.setAttribute("categories", categoryList); // and put them into request
             }
         } catch (SQLException e) {
             e.printStackTrace();

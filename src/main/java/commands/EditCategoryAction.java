@@ -10,8 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Edit information about some category.
+ * Handle 'Edit' button from catalog page.
+ * User only by ADMIN users.
+ */
 public class EditCategoryAction extends Action {
 
+
+    /**
+     * Manager that provide work with database (category table)
+     */
     private CategoryManager categoryManager = new CategoryManager();
 
     @Override
@@ -20,11 +29,13 @@ public class EditCategoryAction extends Action {
         String res = "/main?action=catalog";
 
         try {
+            //get parameters for category from inputs
             String name = request.getParameter("old_name");
             String newName = request.getParameter("name");
             String newDescription = request.getParameter("description");
 
             Category category = categoryManager.getCategoryByName(name);
+
             if (category != null) {
                 category.setName(newName);
                 category.setDescription(newDescription);

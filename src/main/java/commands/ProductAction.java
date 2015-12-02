@@ -13,10 +13,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Get product from database and put it to jsp page
+ */
 public class ProductAction extends Action {
 
 
+    /**
+     * Manager that provide work with database (product table)
+     */
     private ProductManager productManager = new ProductManager();
+
+    /**
+     * Manager that provide work with database (category table)
+     */
     private CategoryManager categoryManager = new CategoryManager();
 
     @Override
@@ -24,11 +34,14 @@ public class ProductAction extends Action {
 
         String res= "product.jsp";
 
-        int productId = Integer.parseInt(request.getParameter("id"));
+        int productId = Integer.parseInt(request.getParameter("id")); //get product id from jsp input
 
         try {
+            // get all catogories for menu
             List<Category> categories = categoryManager.getAllCategories();
+            // get product with id
             Product product = productManager.getById(productId);
+
             request.setAttribute("categories", categories);
             request.setAttribute("product", product);
 

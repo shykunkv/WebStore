@@ -10,8 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Change user's role to USER (allow him use web store).
+ * Handle 'unban' button on the users page.
+ * Used only by ADMIN users.
+ */
 public class UnbanAction extends Action {
 
+
+    /**
+     * Manager that provide work with database (user table)
+     */
     private UserManager userManager = new UserManager();
 
     @Override
