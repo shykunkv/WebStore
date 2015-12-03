@@ -52,7 +52,7 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
         return persist(category);
     }
 
-
+    @Override
     protected List<Category> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<Category> result = new LinkedList<>();
 
@@ -67,6 +67,7 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
         return result;
     }
 
+    @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Category object) throws SQLException {
         statement.setString(1, object.getName());
         statement.setString(2, object.getDescription());

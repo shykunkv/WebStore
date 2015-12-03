@@ -1,6 +1,14 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html lang="en">
+<c:set var="language"
+       value="${not empty param.language ? param.language : not empty language ? language : 'en'}"
+       scope="session"/>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="i18n.webstore" var="lang"/>
+
+<html lang="${language}">
   <head>
     <jsp:include page="layouts/resources.jsp" />
   </head>
@@ -15,9 +23,9 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Welcome to Shykun online store.</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-            <p class="lead"><a href="/main?action=catalog" class="btn btn-lg btn-default"> Shop now </a></p>
+            <h1 class="cover-heading"><fmt:message key="index.welcome" bundle="${lang}"/></h1>
+            <p class="lead"><fmt:message key="lorem.short" bundle="${lang}"/></p>
+            <p class="lead"><a href="/main?action=catalog" class="btn btn-lg btn-default"><fmt:message key="index.start" bundle="${lang}"/></a></p>
           </div>
 
           <div class="mastfoot">

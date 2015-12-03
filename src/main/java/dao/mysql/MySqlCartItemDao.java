@@ -52,7 +52,7 @@ public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
         return persist(cartItem);
     }
 
-
+    @Override
     protected List<CartItem> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<CartItem> result = new LinkedList<>();
 
@@ -68,6 +68,7 @@ public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
         return result;
     }
 
+    @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, CartItem object) throws SQLException {
         statement.setInt(1, object.getProductId());
         statement.setInt(2, object.getOrderId());
@@ -75,6 +76,7 @@ public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
         statement.setInt(4, object.getId());
     }
 
+    @Override
     protected void prepareStatementForInsert(PreparedStatement statement, CartItem object) throws SQLException {
         statement.setInt(1, object.getProductId());
         statement.setInt(2, object.getOrderId());

@@ -4,27 +4,53 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Унифицированный интерфейс управления персистентным состоянием объектов
- * @param <T> тип объекта персистенции
- * @param <PK> тип первичного ключа
+ * Interface for work with persistance objects
+ * @param <T> object type
+ * @param <PK> primary key type
  */
 public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
 
-    /** Создает новую запись и соответствующий ей объект */
+    /**
+     * Creates new record in database
+     * @return created object
+     * @throws SQLException
+     */
     T create() throws SQLException;
 
-    /** Создает новую запись, соответствующую объекту object */
+    /**
+     * Create new record from object
+     * @param object create new record from this object
+     * @return created object
+     * @throws SQLException
+     */
     T persist(T object)  throws SQLException;
 
-    /** Возвращает объект соответствующий записи с первичным ключом key или null */
+    /**
+     * Return object with primary key 'key' or null
+     * @param key primary key of object
+     * @return object with primary key 'key' or null
+     * @throws SQLException
+     */
     T getByPK(PK key) throws SQLException;
 
-    /** Сохраняет состояние объекта group в базе данных */
+    /**
+     * Update object in database
+     * @param object to update
+     * @throws SQLException
+     */
     void update(T object) throws SQLException;
 
-    /** Удаляет запись об объекте из базы данных */
+    /**
+     * Delete record from database
+     * @param object to delete
+     * @throws SQLException
+     */
     void delete(T object) throws SQLException;
 
-    /** Возвращает список объектов соответствующих всем записям в базе данных */
+    /**
+     * Return list of all items from database
+     * @return list of all items
+     * @throws SQLException
+     */
     List<T> getAll() throws SQLException;
 }

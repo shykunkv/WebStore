@@ -1,6 +1,9 @@
 package dao;
 
-/** Фабрика объектов для работы с базой данных */
+/**
+ * Objects that works with database factory
+ * @param <Context>
+ */
 public interface DaoFactory<Context> {
 
     public interface DaoCreator {
@@ -8,7 +11,13 @@ public interface DaoFactory<Context> {
     }
 
     public Context getContext();
+    public void putContext(Context context);
 
-    /** Возвращает объект для управления персистентным состоянием объекта */
+    /**
+     * Return object to work with database
+     * @param dtoClass class of object
+     * @return DAO object, according to dtoClass parameter
+     * @throws IllegalArgumentException
+     */
     public GenericDao getDao(Class dtoClass) throws IllegalArgumentException;
 }

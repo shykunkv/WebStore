@@ -1,1 +1,0 @@
-<title>UA Web Store</title>

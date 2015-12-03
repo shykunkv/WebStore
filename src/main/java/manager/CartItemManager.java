@@ -16,7 +16,6 @@ public class CartItemManager {
 
     public CartItem getById(int cartItemId) throws SQLException {
         MySqlCartItemDao cartItemDao = (MySqlCartItemDao) factory.getDao(CartItem.class);
-
         return cartItemDao.getByPK(cartItemId);
     }
 

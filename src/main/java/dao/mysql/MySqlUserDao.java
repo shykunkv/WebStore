@@ -53,7 +53,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
         return persist(user);
     }
 
-
+    @Override
     protected List<User> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<User> result = new LinkedList<>();
 
@@ -70,6 +70,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
         return result;
     }
 
+    @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws SQLException {
         statement.setString(1, object.getLogin());
         statement.setString(2, object.getHash());

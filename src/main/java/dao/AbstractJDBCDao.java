@@ -82,10 +82,12 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
             throw new SQLException("On persist modify more then 1 record: " + count);
         }
 
-        // Получаем только что вставленную запись
+        // get last modify record
         sql = getSelectQuery() + " WHERE id = last_insert_id();";
         statement = connection.prepareStatement(sql);
         ResultSet rs = statement.executeQuery();
+
+        parentFactory.putContext(connection);
         List<T> list = parseResultSet(rs);
         if ((list == null) || (list.size() != 1)) {
             throw new SQLException("Exception on findByPK new persist data.");
@@ -104,6 +106,9 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, key);
         ResultSet rs = statement.executeQuery();
+        parentFactory.putContext(connection);
+
+
         list = parseResultSet(rs);
 
         if (list == null || list.size() == 0) {
@@ -122,6 +127,8 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
         PreparedStatement statement = connection.prepareStatement(sql);
         prepareStatementForUpdate(statement, object);
         int count = statement.executeUpdate();
+        parentFactory.putContext(connection);
+
         if (count != 1) {
             throw new SQLException("On update modify more then 1 record: " + count);
         }
@@ -131,11 +138,14 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
     @Override
     public void delete(T object) throws SQLException {
         String sql = getDeleteQuery();
-        PreparedStatement statement = parentFactory.getContext().prepareStatement(sql);
+        Connection connection = parentFactory.getContext();
+        PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setObject(1, object.getId());
 
         int count = statement.executeUpdate();
+        parentFactory.putContext(connection);
+
         if (count != 1) {
             throw new SQLException("On delete modify more then 1 record: " + count);
         }
@@ -147,8 +157,12 @@ public abstract class AbstractJDBCDao<T  extends Identified<PK>, PK extends Inte
     public List<T> getAll() throws SQLException {
         List<T> list;
         String sql = getSelectQuery();
-        PreparedStatement statement = parentFactory.getContext().prepareStatement(sql);
+        Connection connection = parentFactory.getContext();
+        PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet rs = statement.executeQuery();
+        parentFactory.putContext(connection);
+
+
         list = parseResultSet(rs);
 
         return list;

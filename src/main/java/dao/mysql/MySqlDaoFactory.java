@@ -6,6 +6,7 @@ import dao.GenericDao;
 import ents.*;
 import org.apache.log4j.Logger;
 
+import javax.enterprise.context.spi.Context;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -38,6 +39,10 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
         }
 
         return null;
+    }
+
+    public void putContext(Connection connection) {
+        connectionManager.addConnection(connection);
     }
 
     private MySqlDaoFactory() {

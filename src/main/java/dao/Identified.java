@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public interface Identified<PK extends Serializable> {
 
-    /** Возвращает идентификатор объекта */
+    /**
+     * Return unique object identifier
+     **/
     PK getId();
 }

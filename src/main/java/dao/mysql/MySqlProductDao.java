@@ -53,7 +53,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> {
         return persist(product);
     }
 
-
+    @Override
     protected List<Product> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<Product> result = new LinkedList<>();
 
@@ -73,6 +73,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> {
         return result;
     }
 
+    @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Product object) throws SQLException {
         statement.setString(1, object.getName());
         statement.setString(2, object.getBrand());
@@ -84,6 +85,7 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> {
         statement.setInt(8, object.getId());
     }
 
+    @Override
     protected void prepareStatementForInsert(PreparedStatement statement, Product object) throws SQLException {
         statement.setString(1, object.getName());
         statement.setString(2, object.getBrand());

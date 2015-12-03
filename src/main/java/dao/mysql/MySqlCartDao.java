@@ -53,7 +53,7 @@ public class MySqlCartDao extends AbstractJDBCDao<Cart, Integer> {
         return persist(cart);
     }
 
-
+    @Override
     protected List<Cart> parseResultSet(ResultSet rs) throws SQLException {
         LinkedList<Cart> result = new LinkedList<>();
 
@@ -68,16 +68,19 @@ public class MySqlCartDao extends AbstractJDBCDao<Cart, Integer> {
         return result;
     }
 
+    @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Cart object) throws SQLException {
         statement.setInt(1, object.getUserId());
         statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
         statement.setInt(3, object.getId());
     }
 
+    @Override
     protected void prepareStatementForInsert(PreparedStatement statement, Cart object) throws SQLException {
         statement.setInt(1, object.getUserId());
         statement.setDate(2, new java.sql.Date(object.getCreatedAt().getTime()));
     }
+
 
     public Cart getByUserId(int userId) throws SQLException {
         List<Cart> list;
