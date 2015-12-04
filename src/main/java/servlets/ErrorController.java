@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 @WebServlet("/error")
 public class ErrorController extends HttpServlet {
@@ -26,7 +27,16 @@ public class ErrorController extends HttpServlet {
     private void processRequest(HttpServletRequest request,
                                 HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("message", "One or more problems were identified :( Please try again later");
+        String path = "i18n.webstore";
+        String curLan = (String) request.getSession().getAttribute("language");
+
+        if (curLan != null && !curLan.equals("en")) {
+            path += "_" + curLan;
+        }
+
+        ResourceBundle rb = ResourceBundle.getBundle(path);
+
+        request.setAttribute("message", rb.getString("error.problems"));
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
         requestDispatcher.forward(request, response);
     }

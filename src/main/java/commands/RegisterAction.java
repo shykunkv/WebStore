@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * Perform register (creating) new user in system.
@@ -41,7 +42,12 @@ public class RegisterAction extends Action {
                 user = userManager.create(login, password, mail);
                 res = "login.jsp";
             } else {
-                req.setAttribute("login_message", "Already used login");
+                String path = "i18n.webstore";
+                String curLan = (String) req.getSession().getAttribute("language");
+                if (curLan != null && !curLan.equals("en"))
+                    path += "_" + curLan;
+                ResourceBundle rb = ResourceBundle.getBundle(path);
+                req.setAttribute("login_message", rb.getString("register.wrong"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

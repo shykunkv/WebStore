@@ -1,14 +1,18 @@
 <%@ taglib uri="/myTags" prefix="tag" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
+<c:set var="language"
+	   value="${not empty param.language ? param.language : not empty language ? language : 'en'}"
+	   scope="session"/>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="i18n.webstore" var="lang"/>
 
-<html lang="en">
+<html lang="${language}">
 <head>
 	<jsp:include page="layouts/resources.jsp" />
 </head>
-
-
 
 <body>
 <div class="site-wrapper">
@@ -40,11 +44,11 @@
 								<input type="hidden" id="pr_image" value="<c:out value="${product.image}"/>">
 							</div>
 							<div class = "col-xs-5">
-								<p>Name: <c:out value="${product.name}"/> </p>
+								<p><fmt:message key="product.name" bundle="${lang}"/>: <c:out value="${product.name}"/> </p>
 								<input type="hidden" id="pr_name" value="<c:out value="${product.name}"/>">
-								<p>Brand: <em>  <c:out value="${product.brand}"/> </em> </p>
+								<p><fmt:message key="product.brand" bundle="${lang}"/>: <em>  <c:out value="${product.brand}"/> </em> </p>
 								<input type="hidden" id="pr_brand" value="<c:out value="${product.brand}"/>">
-								<p>Price: $  <c:out value="${product.price}"/> </p>
+								<p><fmt:message key="product.price" bundle="${lang}"/>: $  <c:out value="${product.price}"/> </p>
 								<input type="hidden" id="pr_price" value="<c:out value="${product.price}"/>">
 								<br/>
 								<c:if test="${user != null && user.role == 'ADMIN'}">
@@ -52,7 +56,7 @@
 										<div class="col-md-4"></div>
 										<div class="col-md-8">
 											<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editProduct">
-												<span class = "glyphicon glyphicon-pencil" />
+												<fmt:message key="product.edit.button" bundle="${lang}"/>
 											</button>
 										</div>
 									</div>
@@ -61,7 +65,7 @@
 									<form method = "POST" action = "/main">
 										<input type="hidden" name="action" value="addToCart" />
 										<input type="hidden" name="product_id" value="<c:out value="${product.id}"/>" />
-										<input type = "submit" value = "Add to Cart" name = "submit" alt = "Add To Cart" class="btn btn-default"/>
+										<input type = "submit" value = "<fmt:message key="product.cart" bundle="${lang}"/>" name = "submit" alt = "Add To Cart" class="btn btn-default"/>
 									</form>
 								</c:if>
 
@@ -72,7 +76,7 @@
 							</div>
 
 							<div class="row">
-								<h3>Product description:</h3>
+								<h3><fmt:message key="product.description" bundle="${lang}"/>:</h3>
 								<p> <c:out value="${product.description	}"/></p>
 								<input type="hidden" id="pr_description" value="<c:out value="${product.description}"/>">
 							</div>
@@ -96,23 +100,23 @@
 												<div class="modal-body">
 													<form action="/main" method="POST">
 														<input type="hidden" name="product_id" value="<c:out value="${product.id}" />" >
-														<input type="text" name="name" class="name form-control" placeholder="Name"/>
+														<input type="text" name="name" class="name form-control" placeholder="<fmt:message key="product.add.name" bundle="${lang}"/>"/>
 														<br>
-														<input type="text" name="brand" class="brand form-control" placeholder="Brand"/>
+														<input type="text" name="brand" class="brand form-control" placeholder="<fmt:message key="product.add.brand" bundle="${lang}"/>"/>
 														<br>
-														<input type="text" name="price" class="price form-control" placeholder="Price"/>
+														<input type="text" name="price" class="price form-control" placeholder="<fmt:message key="product.add.price" bundle="${lang}"/>"/>
 														<br>
-														<input type="text" name="image" class="image form-control" placeholder="Image"/>
+														<input type="text" name="image" class="image form-control" placeholder="<fmt:message key="product.add.image" bundle="${lang}"/>"/>
 														<br>
-														<textarea class="description form-control" name="description" id="message-text" placeholder="Description"></textarea>
+														<textarea class="description form-control" name="description" id="message-text" placeholder="<fmt:message key="product.add.description" bundle="${lang}"/>"></textarea>
 														<input type = "hidden" name = "action" value="editProduct"/>
-														<button type="submit" class="btn btn-default">Save</button>
+														<button type="submit" class="btn btn-default"><fmt:message key="product.add.save" bundle="${lang}"/></button>
 													</form>
 
 													<form action="/main" method="post">
 														<input type="hidden" name="product_id" value="<c:out value="${product.id}" />" >
 														<input type="hidden" name="action" value="deleteProduct"/>
-														<button type="submit" class="btn btn-default">Delete</button>
+														<button type="submit" class="btn btn-default"><fmt:message key="product.del.button" bundle="${lang}"/></button>
 													</form>
 												</div>
 

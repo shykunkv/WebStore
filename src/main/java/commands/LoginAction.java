@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * This action control's login users to web store
@@ -39,17 +40,23 @@ public class LoginAction extends Action {
 
         try {
             User user = userManager.login(login, password);
-
             if (user != null && user.getRole() != User.Role.BLOCKED) {
                 res = "hello.jsp";
                 req.getSession().setAttribute("user", user);
 
                 Cart cart = cartManager.getByUserId(user.getId());
                 req.getSession().setAttribute("cart", cart);
-            } else if (user != null && user.getRole() == User.Role.BLOCKED) { // if user is blocked
-                req.setAttribute("message", "Sorry, you are blocked ;( Please contact us with 'shykunkv@gmail.com' if you have soem questions.");
             } else {
-                req.setAttribute("message", "Invalid login or password");
+                String path = "i18n.webstore";
+                String curLan = (String) req.getSession().getAttribute("language");
+                if (curLan != null && !curLan.equals("en"))
+                    path += "_" + curLan;
+                ResourceBundle rb = ResourceBundle.getBundle(path);
+                if (user != null && user.getRole() == User.Role.BLOCKED) { // if user is blocked
+                    req.setAttribute("message", rb.getString("login.blocked"));
+                } else {
+                    req.setAttribute("message", rb.getString("login.wrong"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

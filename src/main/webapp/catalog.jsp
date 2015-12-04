@@ -1,7 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="/myTags" prefix="tag" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html lang="en">
+<c:set var="language"
+	   value="${not empty param.language ? param.language : not empty language ? language : 'en'}"
+	   scope="session"/>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="i18n.webstore" var="lang"/>
+
+
+<html lang="${language}">
 	<head>
 		<jsp:include page="layouts/resources.jsp" />
 	</head>
@@ -19,7 +28,7 @@
 								<div class="col-md-4"></div>
 								<div class="col-md-8">
 									<h1 class="cover-heading">
-										Hot products
+										<fmt:message key="catalog.heading" bundle="${lang}"/>
 									</h1>
 									<br>
 									<br>
@@ -31,7 +40,7 @@
 								</div>
 								<div class="col-sm-8">
 									<div class="row">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+										<p><fmt:message key="lorem.short" bundle="${lang}"/></p>
 									</div>
 									<div class="row">
 										<br>
@@ -39,12 +48,12 @@
 									</div>
 									<div class="row">
 										<div class="col-md-6">
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											<fmt:message key="lorem.short" bundle="${lang}"/>
+											<fmt:message key="lorem.short" bundle="${lang}"/>
 										</div>
 										<div class="col-md-6">
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											<fmt:message key="lorem.short" bundle="${lang}"/>
+											<fmt:message key="lorem.short" bundle="${lang}"/>
 										</div>
 									</div>
 								</div>

@@ -2,7 +2,9 @@ package filters;
 
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 
 /**
@@ -19,7 +21,16 @@ public class RegistrationFilter implements Filter {
 
         String action = servletRequest.getParameter("action");
 
+
+
         if (action != null && action.equals("register")) {
+
+            String path = "i18n.webstore";
+            HttpServletRequest httpReq = (HttpServletRequest) servletRequest;
+            String curLan = (String) httpReq.getSession().getAttribute("language");
+            if (curLan != null && !curLan.equals("en"))
+                path += "_" + curLan;
+            ResourceBundle rb = ResourceBundle.getBundle(path);
 
             String login = servletRequest.getParameter("login");
             String password = servletRequest.getParameter("password");
@@ -27,17 +38,17 @@ public class RegistrationFilter implements Filter {
             boolean isValid = true;
 
             if  (login.length() < 3 || login.length() > 16) {
-                servletRequest.setAttribute("login_message", "Invalid login");
+                servletRequest.setAttribute("login_message", rb.getString("register.login.error"));
                 isValid = false;
             }
 
             if (mail.length() < 3 && mail.length() > 25 || mail.indexOf('@') < 2) {
-                servletRequest.setAttribute("mail_message", "Invalid mail address");
+                servletRequest.setAttribute("mail_message", rb.getString("register.mail.error"));
                 isValid = false;
             }
 
             if (password.length() < 5 || password.length() > 16) {
-                servletRequest.setAttribute("password_message", "Invalid password");
+                servletRequest.setAttribute("password_message", rb.getString("register.password.error"));
                 isValid = false;
             }
 

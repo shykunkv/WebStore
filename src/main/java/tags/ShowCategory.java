@@ -5,6 +5,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 /**
@@ -20,6 +21,14 @@ public class ShowCategory extends TagSupport {
 
     public int doStartTag() throws JspException {
 
+        String path = "i18n.webstore";
+        String curLan = (String) pageContext.getSession().getAttribute("language");
+
+        if (curLan != null && !curLan.equals("en")) {
+            path += "_" + curLan;
+        }
+
+        ResourceBundle rb = ResourceBundle.getBundle(path);
 
         List<Product> productList = (List<Product>) pageContext.getRequest().getAttribute("products");
         JspWriter out = pageContext.getOut();
@@ -34,8 +43,8 @@ public class ShowCategory extends TagSupport {
 
                     out.println("<div class = \"col-xs-5\">");
                     out.println("<p>" + p.getBrand() + " " + p.getName() + " </p>");
-                    out.println("<p>Price: " + p.getPrice() + " </p>");
-                    out.println("<p><a href = \"/main?action=product&id="+p.getId()+"\" class=\"btn btn-default\">More</a></p>\n");
+                    out.println("<p>"+ rb.getString("product.price") +": " + p.getPrice() + " </p>");
+                    out.println("<p><a href = \"/main?action=product&id="+p.getId()+"\" class=\"btn btn-default\">"+ rb.getString("product.more.button") +"</a></p>\n");
                     out.println("</div>");
                     out.println("</div>");
 
