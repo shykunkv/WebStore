@@ -1,5 +1,5 @@
 TODO list:
 
-3. javadoc
-7. sql scripts
-8. language
+1. some comments in actions
+2. sql scripts
+

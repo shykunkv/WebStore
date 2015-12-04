@@ -13,8 +13,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * DAO implementation for MySQL database and Product entity
+ */
 public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> {
 
+    /**
+     * Resource bundle with MySQL DB queries
+     */
     private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
 
     private class PersistProduct extends Product {
@@ -96,7 +102,12 @@ public class MySqlProductDao extends AbstractJDBCDao<Product, Integer> {
         statement.setString(7, object.getImage());
     }
 
-
+    /**
+     * Get all products from category with specific id
+     * @param categoryId category id
+     * @return list of all products from category
+     * @throws SQLException
+     */
     public List<Product> getAllFromCategory(int categoryId) throws SQLException {
 
         List<Product> result;

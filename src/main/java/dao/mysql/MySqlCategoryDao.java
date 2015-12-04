@@ -11,8 +11,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * DAO implementation for MySQL database and Category entity
+ */
 public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
 
+    /**
+     * Resource bundle with MySQL DB queries
+     */
     private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
 
 
@@ -80,7 +86,12 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
         statement.setString(2, object.getDescription());
     }
 
-
+    /**
+     * Get category from MySQL database with specific name
+     * @param name category name
+     * @return category with this name or null (if doesn't exist)
+     * @throws SQLException
+     */
     public Category getByName(String name) throws SQLException {
         List<Category> list;
         String sql = dbBundle.getString("CATEGORIES.WITH_NAME");

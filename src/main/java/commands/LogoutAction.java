@@ -7,14 +7,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Invoke this action when invoker can't map any other action
- * Handle 'logout' button
+ * Clean session and redirect to index.jsp
  */
-public class DefaultAction extends Action {
+public class LogoutAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession curSession = request.getSession(false);
+        if (curSession != null)
+            curSession.invalidate();
+
         return "index.jsp";
     }
 }

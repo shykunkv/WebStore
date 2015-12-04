@@ -2,6 +2,7 @@ package tags;
 
 import ents.Cart;
 import ents.CartItem;
+import utils.ResourceBundleUtil;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -17,15 +18,11 @@ public class ShowCart extends TagSupport {
 
     public int doStartTag() throws JspException {
 
-        String path = "i18n.webstore";
-        String curLan = (String) pageContext.getSession().getAttribute("language");
+        //get resource bundle for current language
+        String curLanguage = (String) pageContext.getSession().getAttribute("language");
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(curLanguage);
 
-        if (curLan != null && !curLan.equals("en")) {
-            path += "_" + curLan;
-        }
-
-        ResourceBundle rb = ResourceBundle.getBundle(path);
-
+        //get current shopping cart from servlet request
         Cart cart = (Cart) pageContext.getSession().getAttribute("cart"); // get current cart from session
         JspWriter out = pageContext.getOut();
         double total = 0.0;

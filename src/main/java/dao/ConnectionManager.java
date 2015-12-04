@@ -18,7 +18,7 @@ public class ConnectionManager {
     /**
      * Database URL
      */
-    private static String URL = "jdbc:mysql://localhost:3306/webstore_dev";
+    private static String URL = "jdbc:mysql://localhost:3306/webstore_dev?autoReconnect=true&characterEncoding=utf8";
 
     /**
      * Driver name for connection

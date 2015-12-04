@@ -44,6 +44,7 @@ public class ActionInvoker {
         actionMap.put("searchUser", new SearchUserAction());
         actionMap.put("ban", new BanAction());
         actionMap.put("unban", new UnbanAction());
+        actionMap.put("logout", new LogoutAction());
     }
 
 

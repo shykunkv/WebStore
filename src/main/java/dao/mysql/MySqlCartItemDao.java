@@ -12,8 +12,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * DAO implementation for MySQL database and CartItem entity
+ */
 public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
 
+    /**
+     * Resource bundle with MySQL DB queries
+     */
     private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
 
     private class PersistCartItem extends CartItem {
@@ -84,7 +90,12 @@ public class MySqlCartItemDao extends AbstractJDBCDao<CartItem, Integer> {
     }
 
 
-
+    /**
+     * Get all cart items from MySQL database from cart with specific id
+     * @param cardId cart id
+     * @return list of all cart items from that cart
+     * @throws SQLException
+     */
     public List<CartItem> getAllFromCard(int cardId) throws SQLException {
 
         List<CartItem> result;

@@ -12,13 +12,29 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * DAO objects factory for MySQL databse
+ * Implemented as singleton
+ */
 public class MySqlDaoFactory implements DaoFactory<Connection> {
 
+    /**
+     * Instance of factory
+     */
     private static MySqlDaoFactory instance;
+
+    /**
+     * Connection to database
+     */
     private ConnectionManager connectionManager;
+
+    /**
+     * Map for DAO implementation for every entity class
+     */
     private Map<Class, DaoCreator> creators;
 
 
+    @Override
     public GenericDao getDao(Class daoClass) throws IllegalArgumentException {
         DaoCreator creator = creators.get(daoClass);
         if (creator == null) {
@@ -27,6 +43,10 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
         return creator.create(this);
     }
 
+    /**
+     * get connection to database
+     * @return
+     */
     public Connection getContext() {
         try {
             return connectionManager.getConnection();
@@ -45,11 +65,15 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
         connectionManager.addConnection(connection);
     }
 
+    /**
+     * Constructor (fill map)
+     */
     private MySqlDaoFactory() {
 
         connectionManager = new ConnectionManager();
 
         creators = new HashMap();
+
         creators.put(User.class, new DaoCreator() {
             public GenericDao create(DaoFactory factory) {
                 return new MySqlUserDao(factory);
@@ -78,6 +102,10 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
 
     }
 
+    /**
+     * Get instance of DAO factory
+     * @return instance of this singleton class
+     */
     public static MySqlDaoFactory getInstance() {
         if (instance == null) {
             instance = new MySqlDaoFactory();

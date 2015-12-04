@@ -1,5 +1,7 @@
 package filters;
 
+import utils.ResourceBundleUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -18,18 +20,17 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
+        // get current action
         String action = servletRequest.getParameter("action");
 
         if (action != null && action.equals("login")) {
 
-            String path = "i18n.webstore";
+            // get resource bundle for current language
             HttpServletRequest httpReq = (HttpServletRequest) servletRequest;
-            String curLan = (String) httpReq.getSession().getAttribute("language");
-            if (curLan != null && !curLan.equals("en"))
-                path += "_" + curLan;
-            ResourceBundle rb = ResourceBundle.getBundle(path);
+            String curLanguage = (String) httpReq.getSession().getAttribute("language");
+            ResourceBundle rb = ResourceBundleUtil.getResourceBundle(curLanguage);
 
-
+            // get login params
             String login = servletRequest.getParameter("login");
             String password = servletRequest.getParameter("password");
 

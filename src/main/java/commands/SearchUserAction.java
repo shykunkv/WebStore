@@ -33,6 +33,8 @@ public class SearchUserAction extends Action {
             User user = userManager.get(login);
             if (user != null) {
                 request.setAttribute("founded_user", user);
+            } else {
+                request.setAttribute("message", "not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();

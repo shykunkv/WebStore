@@ -25,14 +25,24 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
             <web-resource-name>Restricted folders</web-resource-name>
             <url-pattern>/catalog.jsp/*</url-pattern>
             <url-pattern>/product.jsp/*</url-pattern>
+            <url-pattern>/users*</url-pattern>
         </web-resource-collection>
         <auth-constraint />
     </security-constraint>
 
+    <filter>
+        <filter-name>encodeFilter</filter-name>
+        <filter-class>filters.EncodeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodeFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
     <filter>
         <filter-name>updateFilter</filter-name>
-        <filter-class>filters.UpdateFIlter</filter-class>
+        <filter-class>filters.UpdateFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>updateFilter</filter-name>

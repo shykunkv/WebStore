@@ -1,6 +1,8 @@
 package tags;
 
 import ents.Product;
+import utils.ResourceBundleUtil;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -13,26 +15,21 @@ import java.util.ResourceBundle;
  */
 public class ShowCategory extends TagSupport {
 
-
     /**
      * Path to image folder
      */
-    private static String IMAGE_URL = "images/";
+    private static final String IMAGE_URL = "images/";
 
     public int doStartTag() throws JspException {
+        //get resource bundle for current language
+        String curLanguage = (String) pageContext.getSession().getAttribute("language");
+        ResourceBundle rb = ResourceBundleUtil.getResourceBundle(curLanguage);
 
-        String path = "i18n.webstore";
-        String curLan = (String) pageContext.getSession().getAttribute("language");
-
-        if (curLan != null && !curLan.equals("en")) {
-            path += "_" + curLan;
-        }
-
-        ResourceBundle rb = ResourceBundle.getBundle(path);
-
+        //get list of products from servlet request
         List<Product> productList = (List<Product>) pageContext.getRequest().getAttribute("products");
         JspWriter out = pageContext.getOut();
 
+        //output all products one by one
         if (productList != null) {
             try {
                 for (Product p : productList) {

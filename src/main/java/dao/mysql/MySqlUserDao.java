@@ -11,9 +11,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * DAO implementation for MySQL database and User entity
+ */
 public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
+    /**
+     * Resource bundle with MySQL DB queries
+     */
     private ResourceBundle dbBundle = ResourceBundle.getBundle("db");
 
 
@@ -87,7 +92,15 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
         statement.setString(4, object.getRole().toString());
     }
 
+
+    /**
+     * Get user from MySQL database with specific login
+     * @param login user login
+     * @return user with specific login or null if user with such login doesn't exist
+     * @throws SQLException
+     */
     public User getByLogin(String login) throws SQLException {
+
         List<User> list;
         String sql = dbBundle.getString("USERS.WITH_LOGIN");
         PreparedStatement statement = parentFactory.getContext().prepareStatement(sql);

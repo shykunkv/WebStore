@@ -46,7 +46,7 @@
                 </c:if>
 
                 <c:if test="${user != null}">
-                    <li><a href="/main"><fmt:message key="header.logout" bundle="${lang}"/></a></li>
+                    <li><a href="/main?action=logout"><fmt:message key="header.logout" bundle="${lang}"/></a></li>
                 </c:if>
             </ul>
         </nav>

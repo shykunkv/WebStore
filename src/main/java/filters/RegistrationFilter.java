@@ -1,6 +1,8 @@
 package filters;
 
 
+import utils.ResourceBundleUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -19,25 +21,24 @@ public class RegistrationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
+        // get current action
         String action = servletRequest.getParameter("action");
 
+        if (action != null  && action.equals("register")) {
 
-
-        if (action != null && action.equals("register")) {
-
-            String path = "i18n.webstore";
+            // get resource bundle for current language
             HttpServletRequest httpReq = (HttpServletRequest) servletRequest;
-            String curLan = (String) httpReq.getSession().getAttribute("language");
-            if (curLan != null && !curLan.equals("en"))
-                path += "_" + curLan;
-            ResourceBundle rb = ResourceBundle.getBundle(path);
+            String curLanguage = (String) httpReq.getSession().getAttribute("language");
+            ResourceBundle rb = ResourceBundleUtil.getResourceBundle(curLanguage);
 
+            // get registration params
             String login = servletRequest.getParameter("login");
             String password = servletRequest.getParameter("password");
             String mail = servletRequest.getParameter("mail");
             boolean isValid = true;
 
-            if  (login.length() < 3 || login.length() > 16) {
+            // check valid of every param
+            if  (login.length() < 3 || login.length() > 25) {
                 servletRequest.setAttribute("login_message", rb.getString("register.login.error"));
                 isValid = false;
             }

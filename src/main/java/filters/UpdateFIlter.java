@@ -4,7 +4,10 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class UpdateFIlter implements Filter {
+/**
+ * Filter that check correctness of quantity field in shopping cart
+ */
+public class UpdateFilter implements Filter {
 
     private FilterConfig filterConfig = null;
 

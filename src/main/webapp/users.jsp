@@ -26,15 +26,20 @@
                 <c:if test="${user != null && user.role == 'ADMIN'}">
                     <form action="/main" method="post">
                         <div class="row">
-                            <input type="hidden" name="action" value="searchUser" />
-                            <h2><fmt:message key="users.search.title" bundle="${lang}"/>:</h2>
-                            <input type="text" name="login" class="form-control" placeholder="<fmt:message key="users.search.login" bundle="${lang}"/>" />
-                            <br>
-                            <button type="submit" value="Search" class="btn btn-default"><fmt:message key="users.search.button" bundle="${lang}"/></button>
+                            <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <input type="hidden" name="action" value="searchUser" />
+                                    <h3><fmt:message key="users.search.title" bundle="${lang}"/>:</h3>
+                                    <input type="text" name="login" class="form-control" placeholder="<fmt:message key="users.search.login" bundle="${lang}"/>" />
+                                    <br>
+                                    <button type="submit" value="Search" class="btn btn-default"><fmt:message key="users.search.button" bundle="${lang}"/></button>
+                            </div>
+                            <div class="col-md-3"></div>
                         </div>
+
                         <div class="row"></div>
                     </form>
-                            <c:if test="${founded_user == null}">
+                            <c:if test="${message != null && founded_user == null}">
                                 <h3><fmt:message key="users.search.notfound" bundle="${lang}"/></h3>
                             </c:if>
 
