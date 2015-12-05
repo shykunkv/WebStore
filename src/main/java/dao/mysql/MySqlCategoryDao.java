@@ -32,6 +32,7 @@ public class MySqlCategoryDao extends AbstractJDBCDao<Category, Integer> {
         super(parentFactory);
     }
 
+
     @Override
     public String getSelectQuery() {
         return dbBundle.getString("CATEGORIES.SELECT");
